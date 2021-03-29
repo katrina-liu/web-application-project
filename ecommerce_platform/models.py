@@ -41,3 +41,22 @@ class ShoppingCart(models.Model):
     shopping_cart_product = models.ManyToManyField(Product,
                                                    related_name="contains")
     wishlist_user = models.OneToOneField(User, on_delete=models.PROTECT)
+
+# The model for user profile
+class Profile(models.Model):
+    profile_picture = models.FileField(blank=True)
+    content_type = models.CharField(max_length=50)
+    profile_user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="profile_user")
+    # to get list of selling product: profile.profile_user.product_set.objects.all()
+
+    def __str__(self):
+        return 'id=' + str(self.id) + ",pic=" + self.profile_picture.name
+
+# The model for Order
+class Order(models.Model):
+    buyer = models.ForeignKey(User, on_delete=models.PROTECT)
+    seller = models.ForeignKey(User, on_delete=models.PROTECT)
+    # one order can contain many products, and a product can be in multiple orders
+    item = models.ManyToManyField(Product, related_name="contains")
+    quantity = models.IntegerField()
+    total_price = models.IntegerField()
