@@ -1,3 +1,43 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
+
+
+# The model for each individual product
+class Product(models.Model):
+    # Each product requires three pictures
+    product_picture1 = models.ImageField(blank=True)
+    product_picture2 = models.ImageField(blank=True)
+    product_picture3 = models.ImageField(blank=True)
+    # Product info: name, description, price, in_stock_quantity, availability,
+    #               category, seller
+    product_name = models.CharField(max_length=200)
+    product_description = models.CharField(max_length=1000)
+    product_price = models.IntegerField()
+    product_in_stock_quantity = models.IntegerField()
+    product_availability = models.BooleanField(default=True)
+    product_category = models.CharField(max_length=50)
+    product_seller = models.ForeignKey(User, on_delete=models.PROTECT)
+
+
+# The model for each review for products, use filter to get reviews for each
+# product.
+class Review(models.Model):
+    review_product = models.OneToOneField(Product, on_delete=models.PROTECT)
+    review_content = models.CharField(max_length=200)
+    review_reviewer = models.ForeignKey(User, on_delete=models.PROTECT)
+
+
+# The model for each user's wishlist
+class Wishlist(models.Model):
+    wishlist_products = models.ManyToManyField(Product, related_name="contains")
+    wishlist_user = models.OneToOneField(User, on_delete=models.PROTECT)
+
+
+# The model for each user's shopping cart
+class ShoppingCart(models.Model):
+    shopping_cart_product = models.ManyToManyField(Product,
+                                                   related_name="contains")
+    wishlist_user = models.OneToOneField(User, on_delete=models.PROTECT)
