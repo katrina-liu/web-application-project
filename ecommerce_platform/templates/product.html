@@ -1,10 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "ecommerce_platform/base.html" %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}
+    Produce Page
+{% endblock %}
+
+{% block dropdown %}
+    <a id = "id_browse_all_products" href = "{% url '' %}">
+        <button>Browse all Products</button>
+    </a>
+    {% if user.is_authenticated %}
+        <div class="dropdown">
+            <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
+                Navigation
+            </button>
+            <div class="dropdown-content" id="id_dropdown_content">
+                <a id="id_nav_shopping_cart_link">Shopping Cart</a>
+                <a id="id_nav_wishlist_link">Wishlist</a>
+                <a id="id_nav_profile">My profile</a>
+                <a id="id_nav_logout">Logout</a>
+            </div>
+        </div>
+    {% else %}
+        <a id = "id_login_link" href="{% url '' %}">
+            <button>Login</button>
+        </a>
+        <a id = "id_register_link" href="{% url '' %}">
+            <button>Register</button>
+        </a>
+    {% endif %}
+    
+{% endblock %}
+
+{% block body %}
+    <div>
+        <div id = "id_product_name">{{product_name}}</div>
+
+        <img id = "id_product_picture1" src="{% url 'product_photo' product.id %}" width="200px">  
+        <img id = "id_product_picture2" src="{% url 'product_photo' product.id %}" width="200px">  
+        <img id = "id_product_picture3" src="{% url 'product_photo' product.id %}" width="200px">  
+
+        <div id = "id_product_price">{{product_price}}</div>
+        <div id = "id_product_description">{{product_description}}</div>
+
+        <p>Reviews:</p>
+        <ul>
+        {% for r in reviews %}
+            <ul>
+                <a id = "id_profile_link_{{r.review_reviewer.username}}" href="{% url '' %}">{{r.review_reviewer.first_name}} {{r.review_reviewer.last_name}}</a>
+                {{review_content}}
+            </ul>
+        {% endfor %}
+        </ul>
+
+        {% if user.is_authenticated %}
+            <a id = "id_add_to_wishlist" href="{% url '' %}">
+                <button>Add to Wishlist</button>
+            </a>
+            <a id = "id_add_to_cart" href="{% url '' %}">
+                <button>Add to Cart</button>
+            </a>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
