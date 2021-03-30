@@ -1,0 +1,22 @@
+*.log
+*.pot
+*.pyc
+local_settings.py
+
+# Editor backup files
+*~
+*#
+*.swp
+
+db.sqlite3
+migrations
+.DS_Store
+venv
+my_env
+
+# Image folder
+images
+
+# Secret key values
+*.ini
+
