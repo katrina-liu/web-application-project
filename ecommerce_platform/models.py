@@ -60,3 +60,4 @@ class Order(models.Model):
     item = models.ManyToManyField(Product, related_name="contains")
     quantity = models.IntegerField()
     total_price = models.IntegerField()
+    ongoing = models.BooleanField()
