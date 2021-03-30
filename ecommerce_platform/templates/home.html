@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}
+    Home
+{% endblock %}
+
+{% block dropdown %}
+    {% if user.is_authenticated %}
+        <div class="dropdown">
+        <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
+            Navigation
+        </button>
+        <div class="dropdown-content" id="id_dropdown_content">
+            <a id="id_nav_shopping_cart_link">Shopping Cart</a>
+            <a id="id_nav_wishlist_link">Wishlist</a>
+            <a id="id_nav_profile">My profile</a>
+            <a id="id_nav_logout">Logout</a>
+        </div>
+    </div>
+    {% else %}
+        <button id="id_login_link">Login</button>
+        <button id="id_register_link">Register</button>
+    {% endif %}
+{% endblock %}
