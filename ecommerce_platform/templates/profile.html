@@ -1,10 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "ecommerce_platform/base.html" %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block dropdown %}
+    <a id = "id_browse_all_products" href = "{% url '' %}">
+        <button>Browse all Products</button>
+    </a>
+    {% if user.is_authenticated %}
+        <div class="dropdown">
+            <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
+                Navigation
+            </button>
+            <div class="dropdown-content" id="id_dropdown_content">
+                <a id="id_nav_shopping_cart_link">Shopping Cart</a>
+                <a id="id_nav_wishlist_link">Wishlist</a>
+                <a id="id_nav_profile">My profile</a>
+                <a id="id_nav_logout">Logout</a>
+            </div>
+        </div>
+    {% else %}
+        <a id = "id_login_link" href="{% url '' %}">
+            <button>Login</button>
+        </a>
+        <a id = "id_register_link" href="{% url '' %}">
+            <button>Register</button>
+        </a>
+    {% endif %}
+    
+{% endblock %}
+
+{% block body %}
+    <div>
+        <div id = "id_profile_name">{{first_name}} {{last_name}}</div>
+        {% if profile.profile_picture %}
+            <img id = "id_user_picture" src="{% url '' %}" width="200px">  
+        {% else %}
+            <img id = "id_user_picture" src = "{% static 'ecommerce_platform/no-user-image.gif' %}">
+        {% endif %}
+
+        <div id = "forms">
+            <form method="post" enctype="multipart/form-data" action="{% url 'edit-profile' %}">   
+                <input type="file" id="id_profile_picture" name="profile_picture" value="{{profile.profile_picture}}">
+                {% for error in field.errors %} {{error}} {% endfor %}
+                </br></br> 
+                <input type="submit" id = "id_update_profile_button" value="Submit"> 
+                {% csrf_token %}
+                </br>       
+            </form>    
+        </div>
+
+        <p>List of Products</p>
+        {% for p in profile.profile_user.product_set.objects.all() %}
+            <ul>
+                <img id = "id_product_picture1" src="{% url 'product_photo' product.id %}" width="100px">  
+                <a id = "id_product_link_{{p.product_id}}" href="{% url 'other-profile' f.id %}">{{p.product_name}}</a>
+            </ul>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+            <a id = "id_add_product" href="{% url '' %}">
+                <button>Add Product</button>
+            </a>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
