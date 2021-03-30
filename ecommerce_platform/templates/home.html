@@ -7,18 +7,37 @@
 {% block dropdown %}
     {% if user.is_authenticated %}
         <div class="dropdown">
-        <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
-            Navigation
-        </button>
-        <div class="dropdown-content" id="id_dropdown_content">
-            <a id="id_nav_shopping_cart_link">Shopping Cart</a>
-            <a id="id_nav_wishlist_link">Wishlist</a>
-            <a id="id_nav_profile">My profile</a>
-            <a id="id_nav_logout">Logout</a>
+            <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
+                Navigation
+            </button>
+            <div class="dropdown-content" id="id_dropdown_content">
+                <a id="id_nav_shopping_cart_link">Shopping Cart</a>
+                <a id="id_nav_wishlist_link">Wishlist</a>
+                <a id="id_nav_profile">My profile</a>
+                <a id="id_nav_logout">Logout</a>
+            </div>
         </div>
-    </div>
     {% else %}
         <button id="id_login_link">Login</button>
         <button id="id_register_link">Register</button>
     {% endif %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="sidebar_nav">
+        <span id="id_category_label">Category</span>
+      <a href="#">Apparel</a>
+      <a href="#">Home Goods</a>
+      <a href="#">Pet Supplies</a>
+      <a href="#">Electronics</a>
+    </div>
+
+    <div class="products_display">
+        {% for product in products %}
+            <img src="{% url "product_picture" product.id %}" style="width:250px;height:200px;">
+            <a href="{% url "product_page" product.id %}"> {{ product.name }}</a>
+        {% endfor %}
+    </div>
+
 {% endblock %}
