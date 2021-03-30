@@ -32,14 +32,14 @@ class Review(models.Model):
 
 # The model for each user's wishlist
 class Wishlist(models.Model):
-    wishlist_products = models.ManyToManyField(Product, related_name="contains")
+    wishlist_products = models.ManyToManyField(Product, related_name="wishlist_contains")
     wishlist_user = models.OneToOneField(User, on_delete=models.PROTECT)
 
 
 # The model for each user's shopping cart
 class ShoppingCart(models.Model):
     shopping_cart_product = models.ManyToManyField(Product,
-                                                   related_name="contains")
+                                                   related_name="cart_contains")
     wishlist_user = models.OneToOneField(User, on_delete=models.PROTECT)
 
 # The model for user profile
@@ -54,9 +54,9 @@ class Profile(models.Model):
 
 # The model for Order
 class Order(models.Model):
-    buyer = models.ForeignKey(User, on_delete=models.PROTECT)
-    seller = models.ForeignKey(User, on_delete=models.PROTECT)
+    buyer = models.ForeignKey(User, on_delete=models.PROTECT, related_name="buyer")
+    seller = models.ForeignKey(User, on_delete=models.PROTECT, related_name="seller")
     # one order can contain many products, and a product can be in multiple orders
-    item = models.ManyToManyField(Product, related_name="contains")
+    item = models.ManyToManyField(Product, related_name="order_contains")
     quantity = models.IntegerField()
     total_price = models.IntegerField()
