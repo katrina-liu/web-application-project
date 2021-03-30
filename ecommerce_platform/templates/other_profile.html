@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Profile
+    Profile for Other User
 {% endblock %}
 
 {% block dropdown %}
@@ -34,35 +34,20 @@
 
 {% block body %}
     <div>
-        <div id = "id_profile_name">{{first_name}} {{last_name}}</div>
+        <div id = "id_profile_name">{{other_user_first_name}} {{other_user_last_name}}</div>
         {% if profile.profile_picture %}
             <img id = "id_user_picture" src="{% url '' %}" width="200px">  
         {% else %}
             <img id = "id_user_picture" src = "{% static 'ecommerce_platform/no-user-image.gif' %}">
         {% endif %}
 
-        <div id = "forms">
-            <form method="post" enctype="multipart/form-data" action="{% url 'edit-profile' %}">   
-                <input type="file" id="id_profile_picture" name="profile_picture" value="{{profile.profile_picture}}">
-                {% for error in field.errors %} {{error}} {% endfor %}
-                </br></br> 
-                <input type="submit" id = "id_update_profile_button" value="Submit"> 
-                {% csrf_token %}
-                </br>       
-            </form>    
-        </div>
-
         <p>List of Products</p>
-        {% for p in profile.profile_user.product_set.objects.all() %}
+        {% for p in other_user.profile_user.product_set.objects.all() %}
             <ul>
                 <img id = "id_product_picture1" src="{% url 'product_photo' product.id %}" width="100px">  
                 <a id = "id_product_link_{{p.product_id}}" href="{% url '' %}">{{p.product_name}}</a>
             </ul>
         {% endfor %}
-
-        <a id = "id_add_product" href="{% url '' %}">
-            <button>Add Product</button>
-        </a>
 
     </div>
 
