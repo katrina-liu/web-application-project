@@ -1,10 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}
+    Shopping Cart
+{% endblock %}
+
+{% block dropdown %}
+    {% if user.is_authenticated %}
+        <div class="dropdown">
+            <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
+                Navigation
+            </button>
+            <div class="dropdown-content" id="id_dropdown_content">
+                <a id="id_nav_shopping_cart_link">Shopping Cart</a>
+                <a id="id_nav_wishlist_link">Wishlist</a>
+                <a id="id_nav_profile">My profile</a>
+                <a id="id_nav_logout">Logout</a>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block body %}
+
+    <a id = "id_add_to_wishlish" href="{% url '' %}">
+        <button>Move to Wishlist</button>
+    </a>
+    <a id = "id_remove" href="{% url '' %}">
+        <button>Remove</button>
+    </a>
+    <input type="checkbox" onClick="toggle(this)" />Select All<br/>
+
+    {% for product in available_products %}
+        <input type="checkbox" id="product_{{id}}" name="available_product" value="{{product.product_name}}">
+        <label for="product_{{id}}"> 
+            <img src="{% url 'product_picture' product.id %}" style="width:100px;height:100px;">
+            <a href="{% url 'product_page' product.id %}"> {{ product.product_name }}</a>
+            <p>{{ product.product_price }}</p>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="id_quantity_{{product.id}}" name="quantity" min="1">
+        </label><br>
+        
+    {% endfor %}
+
+    <p>Total Price: {{total_price}}</p>
+
+
+    <br><br>
+
+    <p>Items not available:</p>
+    <a id = "id_remove" href="{% url '' %}">
+        <button>Clear</button>
+    </a>
+    {% for product in unavailable_products %}
+        <img src="{% url 'product_picture' product.id %}" style="width:100px;height:100px;">
+        <a href="{% url 'product_page' product.id %}"> {{ product.product_name }}</a>
+        <p>{{ product.product_price }}</p>
+    {% endfor %}
+
+
+{% endblock %}

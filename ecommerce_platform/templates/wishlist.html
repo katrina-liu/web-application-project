@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Wishlist
+{% endblock %}
+
+{% block dropdown %}
+    {% if user.is_authenticated %}
+        <div class="dropdown">
+            <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
+                Navigation
+            </button>
+            <div class="dropdown-content" id="id_dropdown_content">
+                <a id="id_nav_shopping_cart_link">Shopping Cart</a>
+                <a id="id_nav_wishlist_link">Wishlist</a>
+                <a id="id_nav_profile">My profile</a>
+                <a id="id_nav_logout">Logout</a>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block body %}
+
+    <a id = "id_add_to_cart" href="{% url '' %}">
+        <button>Add to Cart</button>
+    </a>
+    <a id = "id_remove" href="{% url '' %}">
+        <button>Remove</button>
+    </a>
+    <input type="checkbox" onClick="toggle(this)" />Select All<br/>
+
+    {% for product in available_products %}
+        <input type="checkbox" id="product_{{id}}" name="available_product" value="{{product.product_name}}">
+        <label for="product_{{id}}"> 
+            <img src="{% url 'product_picture' product.id %}" style="width:100px;height:100px;">
+            <a href="{% url 'product_page' product.id %}"> {{ product.product_name }}</a>
+            <p>{{ product.product_price }}</p>
+        </label><br>
+        
+    {% endfor %}
+
+
+    <br><br>
+
+    <p>Items not available:</p>
+    <a id = "id_remove" href="{% url '' %}">
+        <button>Clear</button>
+    </a>
+    {% for product in unavailable_products %}
+        <img src="{% url 'product_picture' product.id %}" style="width:100px;height:100px;">
+        <a href="{% url 'product_page' product.id %}"> {{ product.product_name }}</a>
+        <p>{{ product.product_price }}</p>
+    {% endfor %}
+
+
+{% endblock %}
