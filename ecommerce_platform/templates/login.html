@@ -1,10 +1,23 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    Login
+{% endblock %}
+
 {% block dropdown %}
     <button id="id_browse_all_products"> Browse All Products </button>
     <button id="id_register_link"> Register </button>
 {% endblock %}
 
 {% block body %}
+    <div>
+        <form id="login_form" method="post">
+           <table>
+                {{ form }}
+            </table>
+            {% csrf_token %}
+            <button id="id_login_button" type="submit">Submit</button>
+        </form>
+    </div>
 
 {% endblock %}
