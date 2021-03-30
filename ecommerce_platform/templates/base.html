@@ -2,9 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ pagename }}</title>
+    <link rel="stylesheet" href="../static/css/base.css">
 </head>
 <body>
+
+<div class="header">
+    {{ pagename }}
+</div>
+
+<div class="dropdown">
+    {% block dropdown %}
+    {% endblock %}
+</div>
+
+
+{% block body %}
+{% endblock %}
+
 
 </body>
 </html>
