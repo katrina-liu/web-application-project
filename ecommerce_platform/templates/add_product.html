@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html'%}
 
-</body>
-</html>
+{% block title %}
+    Add Product
+{% endblock %}
+
+{% block dropdown %}
+    <div class="dropdown">
+        <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
+            Navigation
+        </button>
+        <div class="dropdown-content" id="id_dropdown_content">
+            <a id="id_nav_shopping_cart_link">Shopping Cart</a>
+            <a id="id_nav_wishlist_link">Wishlist</a>
+            <a id="id_nav_profile">My profile</a>
+            <a id="id_nav_logout">Logout</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block body %}
+    <form enctype="multipart/form-data" method="post" class="edit-form">
+    <table>
+        {% for field in form.visible_fields %}
+            <tr>
+                <td>{{field.label_tag}}</td>
+                <td>{{field}}</td>
+                <td class="error">
+                    {% for error in field.errors %} {{error}} {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr><td colspan="3"><input id="id_add_product_button" type="submit" value="Submit"></td></tr>
+    </table>
+    {% csrf_token %}
+</form>
+
+
+    <button id="id_back_button">Back</button>
+{% endblock %}
