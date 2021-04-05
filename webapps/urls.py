@@ -20,8 +20,12 @@ from ecommerce_platform import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_action),
-    path('home', views.home_action),
-    path('login', views.login_action),
-    path('register', views.register_action),
+    path('home', views.home_action, name = 'home'),
+    path('login', views.login_action, name = 'login'),
+    path('register', views.register_action, name='register'),
+    path('shopping_cart', views.shopping_cart_action, name='shopping_cart'),
+    path('wishlist', views.wishlist_action, name='wishlist'),
+    path('profile', views.profile_action, name='profile'),
+    path('logout', views.logout_action, name='logout')
 
 ]

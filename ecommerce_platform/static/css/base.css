@@ -92,5 +92,15 @@ body{
 
 
 .header {
-    alignment: center;
+  font-size: 50px;
+  font-family: Georgia;
+  text-align: center;
+  padding: 25px 50px;
+  background-color: white;
+}
+
+#forms {
+  margin: 0 auto;
+  display: inline-block;
+  text-align: center;
 }
