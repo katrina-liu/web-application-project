@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block dropdown %}
-    <button id="id_browse_all_products"> Browse All Products </button>
-    <button id="id_register_link"> Register </button>
+    <button id="id_browse_all_products"> <a href="{% url 'home' %}">Browse All Products</a></button>
+    <button id="id_register_button"><a href="{% url 'register' %}">Register</a></button>
 {% endblock %}
 
 {% block body %}

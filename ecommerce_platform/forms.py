@@ -2,8 +2,10 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from ecommerce_platform.models import Review, Product
+from ecommerce_platform.models import *
+import sys
 
+MAX_UPLOAD_SIZE = sys.maxsize
 
 # Login and registration forms from homework
 class LoginForm(forms.Form):
@@ -83,7 +85,7 @@ class ProductForm(ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('profile_picture')
+        fields = ['profile_picture']
 
     def clean_picture(self):
         picture = self.cleaned_data['profile_picture']

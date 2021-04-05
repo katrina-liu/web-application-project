@@ -89,3 +89,8 @@ body{
   .sidebar_nav {padding-top: 15px;}
   .sidebar_nav a {font-size: 18px;}
 }
+
+
+.header {
+    alignment: center;
+}

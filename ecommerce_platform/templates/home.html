@@ -18,8 +18,8 @@
             </div>
         </div>
     {% else %}
-        <button id="id_login_link">Login</button>
-        <button id="id_register_link">Register</button>
+        <button id="id_login_button"> <a href="{% url 'login' %}">Login</a></button>
+        <button id="id_register_button"><a href="{% url 'register' %}">Register</a></button>
     {% endif %}
 
 {% endblock %}
