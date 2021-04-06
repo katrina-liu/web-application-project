@@ -35,8 +35,8 @@
 
     <div class="products_display">
         {% for product in products %}
-            <img src="{% url "product_picture" product.id %}" style="width:250px;height:200px;">
-            <a href="{% url "product_page" product.id %}"> {{ product.name }}</a>
+            <img src="{% url "photo" product.id %}" style="width:250px;height:200px;">
+            <a href="{% url "product" product.id %}"> {{ product.product_name }}</a>
         {% endfor %}
     </div>
 

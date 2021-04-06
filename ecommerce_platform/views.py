@@ -124,7 +124,6 @@ def edit_profile(request):
         context = { 'item': item, 'form': form }
         return render(request, 'profile.html', context)
     
-    pic = form.cleaned_data['profile_picture']
     item.profile_picture = form.cleaned_data['profile_picture']
     item.content_type = form.cleaned_data['profile_picture'].content_type
     item.save()
@@ -140,6 +139,14 @@ def other_profile_action(request, id):
     context['first_name'] = profile.first_name
     context['last_name'] = profile.last_name
     return render(request, 'other_profile.html', context)
+
+@login_required
+def get_photo(request, id):
+    item = get_object_or_404(Product, id=id)
+    if not item.product_picture1:
+        raise Http404
+    return HttpResponse(item.product_picture1)
+
 
 
 @login_required
@@ -169,7 +176,7 @@ def order_seller_action(request):
 
 def product_action(request, id):
     context = {}
-    product = Product.objects.all().get(id)
+    product = Product.objects.all().get(id=id)
     context['product'] = product
     reviews = Review.objects.filter(review_product=product).order_by('-id')
     context['reviews'] = reviews
@@ -182,11 +189,25 @@ def add_product_action(request):
     if request.method == 'GET':
         context['form'] = ProductForm
         return render(request, 'add_product.html', context)
-    new_product = Product(request.POST, request.FILES)
-    new_product.product_availability = True
-    new_product.product_seller = request.user
-    new_product.save()
-    return reverse(redirect('home'))
+    form = ProductForm(request.POST, request.FILES)
+    if form.is_valid():
+        p1 = form.cleaned_data['product_picture1']
+        p2 = form.cleaned_data['product_picture2']
+        p3 = form.cleaned_data['product_picture3']
+        product_name = form.cleaned_data['product_name']
+        product_description = form.cleaned_data['product_description']
+        product_price = form.cleaned_data['product_price']
+        product_in_stock_quantity = form.cleaned_data['product_in_stock_quantity']
+        product_category = form.cleaned_data['product_category']
+        product_availability = True
+        product_seller = request.user
+        product = Product(product_picture1=p1, product_picture2=p2, product_picture3=p3,
+                        product_name=product_name, product_description=product_description,
+                        product_price=product_price, product_in_stock_quantity=product_in_stock_quantity,
+                        product_category=product_category, product_availability=product_availability,
+                        product_seller=product_seller)
+        product.save()
+    return redirect(reverse('home'))
 
 
 def check_out_action(request):

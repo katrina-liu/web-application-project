@@ -16,6 +16,8 @@ my_env
 
 # Image folder
 images
+*.png
+*.jpeg
 
 # Secret key values
 *.ini
