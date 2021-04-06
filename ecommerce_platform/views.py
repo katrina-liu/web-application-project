@@ -141,11 +141,23 @@ def other_profile_action(request, id):
     return render(request, 'other_profile.html', context)
 
 @login_required
-def get_photo(request, id):
+def get_photo(request, id, pid):
     item = get_object_or_404(Product, id=id)
-    if not item.product_picture1:
-        raise Http404
-    return HttpResponse(item.product_picture1)
+    if pid == 1: 
+        if not item.product_picture1:
+            raise Http404
+        else:
+            return HttpResponse(item.product_picture1)
+    if pid == 2: 
+        if not item.product_picture2:
+            raise Http404
+        else:
+            return HttpResponse(item.product_picture2)
+    if pid == 3: 
+        if not item.product_picture3:
+            raise Http404
+        else:
+            return HttpResponse(item.product_picture3)
 
 
 

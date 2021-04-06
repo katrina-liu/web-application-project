@@ -36,9 +36,9 @@
     <div>
         <div id = "id_product_name">{{product.product_name}}</div>
 
-        <img id = "id_product_picture1" src="{% url 'photo' product.id %}" width="200px">  
-        <img id = "id_product_picture2" src="{% url 'photo' product.id %}" width="200px">  
-        <img id = "id_product_picture3" src="{% url 'photo' product.id %}" width="200px">  
+        <img id = "id_product_picture1" src="{% url 'photo' product.id 1 %}" width="200px">  
+        <img id = "id_product_picture2" src="{% url 'photo' product.id 2 %}" width="200px">  
+        <img id = "id_product_picture3" src="{% url 'photo' product.id 3 %}" width="200px">  
 
         <div id = "id_product_price">{{product.product_price}}</div>
         <div id = "id_product_description">{{product.product_description}}</div>

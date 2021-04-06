@@ -55,7 +55,7 @@
         <p>List of Products</p>
         {% for p in products %}
             <ul>
-                <img id = "id_product_picture1" src="{% url 'photo' p.id %}" width="100px">  
+                <img id = "id_product_picture1" src="{% url 'photo' p.id 1 %}" width="100px">  
                 <a id = "id_product_link_{{p.id}}" href="{% url 'product' p.id%}">{{p.product_name}}</a>
             </ul>
         {% endfor %}

@@ -35,5 +35,5 @@ urlpatterns = [
     path('product_<int:id>', views.product_action, name="product"),
     path('add_product', views.add_product_action, name='add_product'),
     path('check_out', views.check_out_action, name='check_out'),
-    path('get_photo/<int:id>', views.get_photo, name='photo')
+    path('get_photo/<int:id>/<int:pid>', views.get_photo, name='photo')
 ]
