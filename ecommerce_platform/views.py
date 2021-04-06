@@ -14,7 +14,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 def home_action(request):
     context = {}
-    context['products'] = Product.objects.all().ordered('-id')
+    context['products'] = Product.objects.all().order_by('-id')
     return render(request, 'home.html', context)
 
 
@@ -142,7 +142,7 @@ def product_action(request, id):
     context = {}
     product = Product.objects.all().get(id)
     context['product'] = product
-    reviews = Review.objects.all().filter(review_product=product).ordered('-id')
+    reviews = Review.objects.filter(review_product=product).order_by('-id')
     context['reviews'] = reviews
     return render(request, 'product.html', context)
 
