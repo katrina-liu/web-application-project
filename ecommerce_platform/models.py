@@ -41,7 +41,7 @@ class Wishlist(models.Model):
 class ShoppingCart(models.Model):
     shopping_cart_product = models.ManyToManyField(Product,
                                                    related_name="cart_contains")
-    wishlist_user = models.OneToOneField(User, on_delete=models.PROTECT)
+    shopping_cart_user = models.OneToOneField(User, on_delete=models.PROTECT)
 
 
 # The model for user profile
