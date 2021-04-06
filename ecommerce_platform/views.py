@@ -65,6 +65,10 @@ def register_action(request):
     new_profile = Profile(profile_user=new_user)
     profileForm = ProfileForm(request.POST, request.FILES, instance=new_profile)
     new_profile.save()
+    shopping_cart = ShoppingCart(shopping_cart_user=new_user)
+    wishlist = Wishlist(wishlist_user=new_user)
+    shopping_cart.save()
+    wishlist.save()
     return redirect(reverse('home'))
 
 
@@ -97,12 +101,37 @@ def profile_action(request):
     context['first_name'] = user.first_name
     context['last_name'] = user.last_name
     context['ProfileForm'] = ProfileForm()
+    context['products'] = user.product_set.all()
 
     # GET Request: Display bio, picture, and form
     if request.method == 'GET':
         userProfile = get_object_or_404(Profile, profile_user=user)
         context['profile'] = userProfile
         return render(request, 'profile.html', context)
+
+@login_required
+def edit_profile(request):
+    #POST Request: update existing profile.
+    context = {}
+    user = request.user
+    context['first_name'] = user.first_name    
+    context['last_name'] = user.last_name
+    context['ProfileForm'] = ProfileForm()
+
+    item = get_object_or_404(Profile, profile_user=user)
+    form = ProfileForm(request.POST, request.FILES)
+    if not form.is_valid():
+        context = { 'item': item, 'form': form }
+        return render(request, 'profile.html', context)
+    
+    pic = form.cleaned_data['profile_picture']
+    item.profile_picture = form.cleaned_data['profile_picture']
+    item.content_type = form.cleaned_data['profile_picture'].content_type
+    item.save()
+    context['message'] = 'Item #{0} saved.'.format(item.id)
+    context['ProfileForm'] = ProfileForm()
+    context['profile'] = item
+    return render(request, 'profile.html', context)
 
 
 def other_profile_action(request, id):

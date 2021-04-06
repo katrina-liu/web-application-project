@@ -26,6 +26,7 @@ urlpatterns = [
     path('shopping_cart', views.shopping_cart_action, name='shopping_cart'),
     path('wishlist', views.wishlist_action, name='wishlist'),
     path('profile', views.profile_action, name='profile'),
+    path('edit_profile', views.edit_profile, name='edit-profile'),
     path('logout', views.logout_action, name='logout'),
     path('order_buyer', views.order_buyer_action, name='order_buyer'),
     path('order_seller', views.order_seller_action, name='order_seller'),

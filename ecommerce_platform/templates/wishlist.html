@@ -11,10 +11,10 @@
                 Navigation
             </button>
             <div class="dropdown-content" id="id_dropdown_content">
-                <a id="id_nav_shopping_cart_link">Shopping Cart</a>
-                <a id="id_nav_wishlist_link">Wishlist</a>
-                <a id="id_nav_profile">My profile</a>
-                <a id="id_nav_logout">Logout</a>
+                <a id="id_nav_shopping_cart_link" href="{% url 'shopping_cart' %}">Shopping Cart</a>
+                <a id="id_nav_wishlist_link" href="{% url 'wishlist' %}">Wishlist</a>
+                <a id="id_nav_profile" href="{% url 'profile' %}">My profile</a>
+                <a id="id_nav_logout" href="{% url 'logout' %}">Logout</a>
             </div>
         </div>
     {% endif %}
@@ -23,10 +23,10 @@
 
 {% block body %}
 
-    <a id = "id_add_to_cart" href="{% url '' %}">
+    <a id = "id_add_to_cart" href="{% url 'home' %}">
         <button>Add to Cart</button>
     </a>
-    <a id = "id_remove" href="{% url '' %}">
+    <a id = "id_remove" href="{% url 'home' %}">
         <button>Remove</button>
     </a>
     <input type="checkbox" onClick="toggle(this)" />Select All<br/>
@@ -45,7 +45,7 @@
     <br><br>
 
     <p>Items not available:</p>
-    <a id = "id_remove" href="{% url '' %}">
+    <a id = "id_remove" href="{% url 'home' %}">
         <button>Clear</button>
     </a>
     {% for product in unavailable_products %}
