@@ -7,6 +7,7 @@ import sys
 
 MAX_UPLOAD_SIZE = sys.maxsize
 
+
 # Login and registration forms from homework
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20)
@@ -82,6 +83,7 @@ class ProductForm(ModelForm):
     def clean(self):
         return super().clean()
 
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -91,9 +93,10 @@ class ProfileForm(forms.ModelForm):
         picture = self.cleaned_data['profile_picture']
         if not picture or not hasattr(picture, 'content_type'):
             raise forms.ValidationError('You must upload a picture')
-        if not picture.content_type or not picture.content_type.startswith('image'):
+        if not picture.content_type or not picture.content_type.startswith(
+                'image'):
             raise forms.ValidationError('File type is not image')
         if picture.size > MAX_UPLOAD_SIZE:
-            raise forms.ValidationError('File too big (max size is {0} bytes)'.format(MAX_UPLOAD_SIZE))
+            raise forms.ValidationError(
+                'File too big (max size is {0} bytes)'.format(MAX_UPLOAD_SIZE))
         return picture
-    

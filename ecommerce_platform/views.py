@@ -75,9 +75,12 @@ def register_action(request):
 @login_required
 def shopping_cart_action(request):
     context = {}
-    shopping_cart = ShoppingCart.objects.all().get(shopping_cart_user=request.user)
-    available = shopping_cart.shopping_cart_product.filter(product_availability=True)
-    other = shopping_cart.shopping_cart_product.filter(product_availability=False)
+    shopping_cart = ShoppingCart.objects.all().get(
+        shopping_cart_user=request.user)
+    available = shopping_cart.shopping_cart_product.filter(
+        product_availability=True)
+    other = shopping_cart.shopping_cart_product.filter(
+        product_availability=False)
     context['available_products'] = available
     context['unavailable_products'] = other
     return render(request, 'shopping_cart.html', context)
@@ -109,21 +112,22 @@ def profile_action(request):
         context['profile'] = userProfile
         return render(request, 'profile.html', context)
 
+
 @login_required
 def edit_profile(request):
-    #POST Request: update existing profile.
+    # POST Request: update existing profile.
     context = {}
     user = request.user
-    context['first_name'] = user.first_name    
+    context['first_name'] = user.first_name
     context['last_name'] = user.last_name
     context['ProfileForm'] = ProfileForm()
 
     item = get_object_or_404(Profile, profile_user=user)
     form = ProfileForm(request.POST, request.FILES)
     if not form.is_valid():
-        context = { 'item': item, 'form': form }
+        context = {'item': item, 'form': form}
         return render(request, 'profile.html', context)
-    
+
     item.profile_picture = form.cleaned_data['profile_picture']
     item.content_type = form.cleaned_data['profile_picture'].content_type
     item.save()
@@ -140,25 +144,25 @@ def other_profile_action(request, id):
     context['last_name'] = profile.last_name
     return render(request, 'other_profile.html', context)
 
+
 @login_required
 def get_photo(request, id, pid):
     item = get_object_or_404(Product, id=id)
-    if pid == 1: 
+    if pid == 1:
         if not item.product_picture1:
             raise Http404
         else:
             return HttpResponse(item.product_picture1)
-    if pid == 2: 
+    if pid == 2:
         if not item.product_picture2:
             raise Http404
         else:
             return HttpResponse(item.product_picture2)
-    if pid == 3: 
+    if pid == 3:
         if not item.product_picture3:
             raise Http404
         else:
             return HttpResponse(item.product_picture3)
-
 
 
 @login_required
@@ -209,15 +213,20 @@ def add_product_action(request):
         product_name = form.cleaned_data['product_name']
         product_description = form.cleaned_data['product_description']
         product_price = form.cleaned_data['product_price']
-        product_in_stock_quantity = form.cleaned_data['product_in_stock_quantity']
+        product_in_stock_quantity = form.cleaned_data[
+            'product_in_stock_quantity']
         product_category = form.cleaned_data['product_category']
         product_availability = True
         product_seller = request.user
-        product = Product(product_picture1=p1, product_picture2=p2, product_picture3=p3,
-                        product_name=product_name, product_description=product_description,
-                        product_price=product_price, product_in_stock_quantity=product_in_stock_quantity,
-                        product_category=product_category, product_availability=product_availability,
-                        product_seller=product_seller)
+        product = Product(product_picture1=p1, product_picture2=p2,
+                          product_picture3=p3,
+                          product_name=product_name,
+                          product_description=product_description,
+                          product_price=product_price,
+                          product_in_stock_quantity=product_in_stock_quantity,
+                          product_category=product_category,
+                          product_availability=product_availability,
+                          product_seller=product_seller)
         product.save()
     return redirect(reverse('home'))
 
@@ -226,3 +235,44 @@ def check_out_action(request):
     context = {}
     return render(request, 'transaction.html', context)
 
+
+def change_category(request, category):
+    context = {}
+    context['products'] = Product.objects.all().filter(
+        product_category=category).order_by('-id')
+    return render(request, 'home.html', context)
+
+
+def buy_change_ongoing(request, ongoing):
+    context = {}
+    if ongoing == 1:
+        order_list = Order.objects.all().filter(buyer=request.user,
+                                                ongoing=True)
+    else:
+        order_list = Order.objects.all().filter(buyer=request.user,
+                                                ongoing=False)
+    context['order_list'] = order_list
+    return render(request, 'order_buyer.html', context)
+
+
+def sell_change_ongoing(request, ongoing):
+    context = {}
+    if ongoing == 1:
+        order_list = Order.objects.all().filter(seller=request.user,
+                                                ongoing=True)
+    else:
+        order_list = Order.objects.all().filter(seller=request.user,
+                                                ongoing=False)
+    context['order_list'] = order_list
+    return render(request, 'order_seller.html', context)
+
+
+def add_to_shopping_cart(request, product_id):
+    shopping_cart = ShoppingCart.objects.all().get(shopping_cart_user=request.user)
+    shopping_cart.shopping_cart_product.add(Product.objects.all().get(id=product_id))
+    return redirect(reverse('shopping_cart'))
+
+def add_to_wish_list(request, product_id):
+    wishlist = Wishlist.objects.all().get(wishlist_user=request.user)
+    wishlist.wishlist_products.add(Product.objects.all().get(id=product_id))
+    return redirect(reverse('wishlist'))

@@ -31,28 +31,44 @@
     </a>
     <input type="checkbox" onClick="toggle(this)" />Select All<br/>
 
+    <table>
     {% for product in available_products %}
-        <input type="checkbox" id="product_{{id}}" name="available_product" value="{{product.product_name}}">
-        <label for="product_{{id}}"> 
-            <img src="{% url 'product_picture' product.id %}" style="width:100px;height:100px;">
-            <a href="{% url 'product_page' product.id %}"> {{ product.product_name }}</a>
-            <p>{{ product.product_price }}</p>
-        </label><br>
-        
+        <tr>
+            <td>
+                <input type="checkbox" id="product_{{id}}" name="available_product" value="{{product.product_name}}">
+                <label for="product_{{id}}">
+                    <img class='small_img' src="{% url "photo" product.id 1 %}" style="width:100px;height:100px;">
+                    <a href="{% url "product" product.id %}" style="font-size: 26px; color: rgba(45,69,92,0.86);">
+                        {{ product.product_name }}</a>
+                    <span class="small_price">Price: ${{ product.product_price }}</span>
+                </label>
+            </td>
+        </tr>
     {% endfor %}
-
+    </table>
 
     <br><br>
 
+    <div>
     <p>Items not available:</p>
     <a id = "id_remove" href="{% url 'home' %}">
         <button>Clear</button>
     </a>
-    {% for product in unavailable_products %}
-        <img src="{% url 'product_picture' product.id %}" style="width:100px;height:100px;">
-        <a href="{% url 'product_page' product.id %}"> {{ product.product_name }}</a>
-        <p>{{ product.product_price }}</p>
-    {% endfor %}
+    <table>
+        {% for product in unavailable_products %}
+            <tr>
+            <td>
+                <img class='small_img' src="{% url "photo" product.id 1 %}" style="width:100px;height:100px;">
+                    <a href="{% url "product" product.id %}" style="font-size: 26px; color: rgba(45,69,92,0.86);">
+                        {{ product.product_name }}</a>
+                    <span class="small_price">Price: ${{ product.product_price }}</span>
+            </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+    </div>
 
 
 {% endblock %}

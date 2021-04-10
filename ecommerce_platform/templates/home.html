@@ -27,16 +27,18 @@
 {% block body %}
     <div class="sidebar_nav">
         <span id="id_category_label">Category</span>
-      <a href="#">Apparel</a>
-      <a href="#">Home Goods</a>
-      <a href="#">Pet Supplies</a>
-      <a href="#">Electronics</a>
+      <a href="{% url 'category' 'Apparel' %}">Apparel</a>
+      <a href="{% url 'category' 'Home Goods' %}">Home Goods</a>
+      <a href="{% url 'category' 'Pet Supplies' %}">Pet Supplies</a>
+      <a href="{% url 'category' 'Electronics' %}">Electronics</a>
     </div>
 
     <div class="products_display">
         {% for product in products %}
-            <img src="{% url "photo" product.id 1 %}" style="width:250px;height:200px;">
-            <a href="{% url "product" product.id %}"> {{ product.product_name }}</a>
+            <div class="tile">
+            <img src="{% url "photo" product.id 1 %}" style="width:250px;height:250px;">
+            <p><a style="color:rgba(45,69,92,0.86)" href="{% url "product" product.id %}"> {{ product.product_name }}</a></p>
+            </div>
         {% endfor %}
     </div>
 

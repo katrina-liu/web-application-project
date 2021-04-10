@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Orders as a Buyer
+    Purchases
 {% endblock %}
 
 {% block dropdown %}
@@ -10,20 +10,20 @@
             Navigation
         </button>
         <div class="dropdown-content" id="id_dropdown_content">
-            <a id="id_nav_shopping_cart_link">Shopping Cart</a>
-            <a id="id_nav_wishlist_link">Wishlist</a>
-            <a id="id_nav_profile">My profile</a>
-            <a id="id_nav_logout">Logout</a>
+            <a id="id_nav_shopping_cart_link" href="{% url 'shopping_cart' %}">Shopping Cart</a>
+                <a id="id_nav_wishlist_link" href="{% url 'wishlist' %}">Wishlist</a>
+                <a id="id_nav_profile" href="{% url 'profile' %}">My profile</a>
+                <a id="id_nav_logout" href="{% url 'logout' %}">Logout</a>
         </div>
     </div>
 {% endblock %}
 
 {% block body %}
-<div class="sidebar_nav">
-    <span id="id_category_label">Category</span>
-    <a href="#">Ongoing Order</a>
-    <a href="#">Previous Order</a>
-    {% if order_type == "ongoing" %}
+    <div class="sidebar_nav">
+        <span id="id_category_label">Category</span>
+        <a href="{% url 'order_buy' 1 %}">Ongoing Order</a>
+        <a href="{% url 'order_buy' 0 %}">Previous Order</a>
+    </div>
         {% for order in order_list %}
             <div>
             <span id="id_order_{{ order.id }}"> Order Number: {{ order.id }}</span>
@@ -36,18 +36,5 @@
             {% endfor %}
             <div>
         {% endfor %}
-    {% else %}
-        {% for order in order_list %}
-            <div>
-            <span id="id_order_{{ order.id }}"> Order Number: {{ order.id }}</span>
-            <button id="id_order_contact_seller_button_{{ order.id }}">Contact Seller</button>
-            {% for product in order.product %}
-                <img src="{% url "product_picture" product.id %}" style="width:50px;height:50px;">
-                <span id="id_product_name_{{ product.id }}"> {{ product.name }}</span>
-                <span id="id_product_price_{{ product.id }}"> $ {{ product.price }}</span>
-            {% endfor %}
-            <div>
-        {% endfor %}
-    {% endif %}
-</div>
+
 {% endblock %}

@@ -1,10 +1,38 @@
 body{
-    background-color: rgba(0,170,255,0.31);
+    background-color: #dddddd;
+}
+
+button{
+    background-color: rgba(45,69,92,0.90);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+div {
+    text-align: center;
+    alignment: center;
+}
+
+button:hover{
+    background-color: rgba(45,69,92,0.90);
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover{
+    color: #f1f1f1;
 }
 
 /* Dropdown Button */
 .dropbtn {
-    background-color: rgba(88,33,255,0.4);
+    background-color: rgba(45,69,92,0.90);
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -14,7 +42,7 @@ body{
 
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
-  background-color: rgba(88,33,255,0.18);
+  background-color: rgba(45,69,92,0.90);
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -22,15 +50,16 @@ body{
     position: relative;
     display: inline-block;
     float: right;
-    right: 2%;
+    right: 0;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
   position: absolute;
-  min-width: 130px;
+  min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: rgba(45,69,92,0.90);
   z-index: 1;
 }
 
@@ -43,7 +72,7 @@ body{
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd}
+.dropdown-content a:hover {background-color: rgba(45,69,92,0.90)}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
@@ -54,12 +83,11 @@ body{
 /* The sidebar menu */
 .sidebar_nav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 160px; /* Set the width of the sidebar */
+  width: 200px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  background-color: #111; /* Black */
+  top: 115px; /* Stay at the top */
+  left: 7px;
+  background-color: rgba(45,69,92,0.90); /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
 }
@@ -68,9 +96,11 @@ body{
 .sidebar_nav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 25px;
-  color: #818181;
+  font-size: 22px;
+  color: #dddddd;
   display: block;
+    text-align: left;
+    alignment: center;
 }
 
 /* When you mouse over the navigation links, change their color */
@@ -97,10 +127,155 @@ body{
   text-align: center;
   padding: 25px 50px;
   background-color: white;
+    color: rgba(45,69,92,0.90);
+      z-index: 1; /* Stay on top */
 }
 
 #forms {
   margin: 0 auto;
   display: inline-block;
   text-align: center;
+}
+
+#id_category_label{
+    padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #dddddd;
+  display: block;
+}
+
+form {
+    color: rgba(45,69,92,0.86);
+    alignment: center;
+    display: inline-block;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=number] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+    background-color: rgba(45,69,92,0.90);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+input[type=submit]:hover {
+    background-color: rgba(45,69,92,0.90);
+}
+
+
+input[type=file] {
+    background-color: rgba(45,69,92,0.90);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+input[type=checkbox] {
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 30px;
+}
+
+.form-row {
+    alignment: center;
+}
+
+.browse_products{
+    float: left;
+    margin-right: 10px;
+}
+
+label {
+    color: rgba(45,69,92,0.86);
+    font-size: 18px;
+}
+
+#id_profile_name{
+    color: rgba(45,69,92,0.86);
+    font-size: 50px;
+}
+
+p{
+    color: rgba(45,69,92,0.86);
+    font-size: 30px;
+}
+
+a .product_name{
+    color: rgba(45,69,92,0.86);
+}
+
+.checkout {
+    text-align: right;
+}
+
+.products_display{
+    background-color: white;
+    position:fixed;
+    left: 100px;
+    width: 70%;
+    margin-top: 10px;
+    text-align: left;
+}
+.tile{
+    background-color: #dddddd;
+    width: 250px;
+    display: inline-block;
+    padding: 10px;
+    margin: 10px 50px 50px;
+}
+
+#id_product_name{
+    color: rgba(45,69,92,0.86);
+}
+
+table {
+    margin-top: 20px;
+    width: 100%;
+}
+
+tr {
+    background-color: white;
+    margin-top: 20px;
+    width: 100%;
+}
+
+td {
+    margin: 5px;
+}
+
+.small_img{
+    vertical-align: middle;
+}
+
+.small_price{
+    font-size: 26px;position: fixed; right: 10%;
 }
