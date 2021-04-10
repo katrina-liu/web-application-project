@@ -141,10 +141,10 @@ def other_profile_action(request, id):
     context = {}
     # profile = Profile.objects.all().get(id=id)
     profile = get_object_or_404(Profile, id=id)
-    context['first_name'] = profile.first_name
-    context['last_name'] = profile.last_name
+    context['first_name'] = profile.profile_user.first_name
+    context['last_name'] = profile.profile_user.last_name
     context['profile'] = profile
-    context['products'] = profile.profile_user.product_set.objects.all()
+    context['products'] = profile.profile_user.product_set.all()
     return render(request, 'other_profile.html', context)
 
 

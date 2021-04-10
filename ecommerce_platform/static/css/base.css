@@ -233,6 +233,10 @@ a .product_name{
     color: rgba(45,69,92,0.86);
 }
 
+a .id_seller_name{
+  color: rgba(45,69,92,0.86);
+}
+
 .checkout {
     text-align: right;
 }
