@@ -256,3 +256,26 @@ a .product_name{
 #id_product_name{
     color: rgba(45,69,92,0.86);
 }
+
+table {
+    margin-top: 20px;
+    width: 100%;
+}
+
+tr {
+    background-color: white;
+    margin-top: 20px;
+    width: 100%;
+}
+
+td {
+    margin: 5px;
+}
+
+.small_img{
+    vertical-align: middle;
+}
+
+.small_price{
+    font-size: 26px;position: fixed; right: 10%;
+}
