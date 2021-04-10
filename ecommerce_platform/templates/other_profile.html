@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block dropdown %}
-    <a id = "id_browse_all_products" href = "{% url 'home' %}">
+    <a id = "id_browse_all_products" class = "browse_products" href = "{% url 'home' %}">
         <button>Browse all Products</button>
     </a>
     {% if user.is_authenticated %}
@@ -34,7 +34,7 @@
 
 {% block body %}
     <div>
-        <div id = "id_profile_name">{{other_user_first_name}} {{other_user_last_name}}</div>
+        <div id = "id_profile_name">{{profile.profile_user.first_name}} {{profile.profile_user.last_name}}</div>
         {% if profile.profile_picture %}
             <img id = "id_user_picture" src="{% url 'profile_photo' profile.id %}" width="200px">  
         {% else %}
@@ -45,7 +45,8 @@
         {% for p in products %}
             <ul>
                 <img id = "id_product_picture1" src="{% url 'photo' p.id 1 %}" width="100px">  
-                <a id = "id_product_link_{{p.id}}" href="{% url 'product' p.id%}">{{p.product_name}}</a>
+                <br>
+                <a id = "id_product_link_{{p.id}}" style="color:darkgrey" href="{% url 'product' p.id%}">{{p.product_name}}</a>
             </ul>
         {% endfor %}
 
