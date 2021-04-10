@@ -23,6 +23,7 @@
     <span id="id_category_label">Category</span>
     <a href="#">Ongoing Order</a>
     <a href="#">Previous Order</a>
+</div>
     {% if order_type == "ongoing" %}
         {% for order in order_list %}
             <div>
@@ -48,5 +49,4 @@
             <div>
         {% endfor %}
     {% endif %}
-</div>
 {% endblock %}
