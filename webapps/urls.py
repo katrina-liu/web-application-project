@@ -30,7 +30,7 @@ urlpatterns = [
     path('logout', views.logout_action, name='logout'),
     path('order_buyer', views.order_buyer_action, name='order_buyer'),
     path('order_seller', views.order_seller_action, name='order_seller'),
-    path('other_profile_<int:id>', views.other_profile_action,
+    path('other_profile/<int:id>', views.other_profile_action,
          name='other_profile'),
     path('product_<int:id>', views.product_action, name="product"),
     path('add_product', views.add_product_action, name='add_product'),
