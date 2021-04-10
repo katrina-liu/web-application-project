@@ -43,5 +43,6 @@ urlpatterns = [
     path('add_to_wishlist=<int:product_id>', views.add_to_wish_list,
          name='add_to_wishlist'),
     path('add_to_shopping_cart=<int:product_id>', views.add_to_shopping_cart,
-         name='add_to_shopping_cart')
+         name='add_to_shopping_cart'),
+    path('get_profile_photo/<int:id>', views.get_profile_photo, name = "profile_photo")
 ]

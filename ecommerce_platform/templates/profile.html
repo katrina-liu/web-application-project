@@ -40,9 +40,9 @@
         <br>
         <br>
         {% if profile.profile_picture %}
-            <img id = "id_user_picture" src="{% url 'home' %}" width="200px">  
+            <img id = "id_user_picture" src="{% url 'profile_photo' profile.id %}" width="200px">  
         {% else %}
-            <img id = "id_user_picture" src = "{% static 'ecommerce_platform/no-user-image.gif' %}">
+            <img id = "id_user_picture" src = "{% static 'images/no-user-image.gif' %}">
         {% endif %}
 
             <form method="post" enctype="multipart/form-data" action="{% url 'edit-profile' %}">   

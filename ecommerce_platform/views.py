@@ -164,6 +164,13 @@ def get_photo(request, id, pid):
         else:
             return HttpResponse(item.product_picture3)
 
+def get_profile_photo(request, id):
+    item = get_object_or_404(Profile, id=id)
+    if not item.profile_picture:
+        raise Http404
+    else:
+        return HttpResponse(item.profile_picture)
+
 
 @login_required
 def logout_action(request):
