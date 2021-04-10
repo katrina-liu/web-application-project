@@ -20,8 +20,8 @@ from ecommerce_platform import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_action),
-    path('home', views.home_action, name = 'home'),
-    path('login', views.login_action, name = 'login'),
+    path('home', views.home_action, name='home'),
+    path('login', views.login_action, name='login'),
     path('register', views.register_action, name='register'),
     path('shopping_cart', views.shopping_cart_action, name='shopping_cart'),
     path('wishlist', views.wishlist_action, name='wishlist'),
@@ -35,5 +35,13 @@ urlpatterns = [
     path('product_<int:id>', views.product_action, name="product"),
     path('add_product', views.add_product_action, name='add_product'),
     path('check_out', views.check_out_action, name='check_out'),
-    path('get_photo/<int:id>/<int:pid>', views.get_photo, name='photo')
+    path('get_photo/<int:id>/<int:pid>', views.get_photo, name='photo'),
+    path('category=<str:category>', views.change_category, name='category'),
+    path('order_sell=<int:ongoing>', views.sell_change_ongoing,
+         name='order_sell'),
+    path('order_buy=<int:ongoing>', views.buy_change_ongoing, name='order_buy'),
+    path('add_to_wishlist=<int:product_id>', views.add_to_wish_list,
+         name='add_to_wishlist'),
+    path('add_to_shopping_cart=<int:product_id>', views.add_to_shopping_cart,
+         name='add_to_shopping_cart')
 ]

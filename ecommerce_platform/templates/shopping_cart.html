@@ -24,7 +24,7 @@
 {% block body %}
 
     <button>
-        <a id = "id_add_to_wishlish" href="{% url 'home' %}">
+        <a id = "id_add_to_wishlist" href="{% url 'home' %}">
             Move to Wishlist
         </a>
     </button>
@@ -36,10 +36,11 @@
     <input type="checkbox" onClick="toggle(this)" />Select All<br/>
 
     {% for product in available_products %}
+
         <input type="checkbox" id="product_{{id}}" name="available_product" value="{{product.product_name}}">
         <label for="product_{{id}}"> 
-            <img src="{% url 'product_picture' product.id %}" style="width:100px;height:100px;">
-            <a href="{% url 'product_page' product.id %}"> {{ product.product_name }}</a>
+            <img src="{% url "photo" product.id 1 %}" style="width:100px;height:100px;">
+            <a href="{% url "product" product.id %}"> {{ product.product_name }}</a>
             <p>{{ product.product_price }}</p>
             <label for="quantity">Quantity:</label>
             <input type="number" id="id_quantity_{{product.id}}" name="quantity" min="1">
@@ -47,26 +48,28 @@
         
     {% endfor %}
 
-    <p>Total Price: {{total_price}}</p>
-
-    <div>
+    <div class="checkout">
+        <p><span style="margin-right: 50px">Total Price: {{total_price}}</span>
         <button id="id_check_out_button">
             <a href="{% url 'home' %}">Check Out</a>
         </button>
+    </p>
     </div>
 
 
     <br><br>
 
+    <div>
     <p>Items not available:</p>
     <a id = "id_remove" href="{% url 'home' %}">
         <button>Clear</button>
     </a>
     {% for product in unavailable_products %}
-        <img src="{% url 'product_picture' product.id %}" style="width:100px;height:100px;">
-        <a href="{% url 'product_page' product.id %}"> {{ product.product_name }}</a>
-        <p>{{ product.product_price }}</p>
+        <img src="{% url "photo" product.id 1 %}" style="width:100px;height:100px;">
+            <a href="{% url "product" product.id %}"> {{ product.product_name }}</a>
+            <p>{{ product.product_price }}</p>
     {% endfor %}
+    </div>
 
 
 {% endblock %}

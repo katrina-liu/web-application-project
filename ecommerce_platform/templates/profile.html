@@ -36,14 +36,15 @@
 
 {% block body %}
     <div>
-        <div id = "id_profile_name">{{first_name}} {{last_name}}</div>
+        <span id = "id_profile_name">Hello, {{first_name}} {{last_name}}!</span>
+        <br>
+        <br>
         {% if profile.profile_picture %}
             <img id = "id_user_picture" src="{% url 'home' %}" width="200px">  
         {% else %}
             <img id = "id_user_picture" src = "{% static 'ecommerce_platform/no-user-image.gif' %}">
         {% endif %}
 
-        <div id = "forms">
             <form method="post" enctype="multipart/form-data" action="{% url 'edit-profile' %}">   
                 <input type="file" id="id_profile_picture" name="profile_picture" value="{{profile.profile_picture}}">
                 {% for error in field.errors %} {{error}} {% endfor %}
@@ -51,10 +52,17 @@
                 <input type="submit" id = "id_update_profile_button" value="Submit"> 
                 {% csrf_token %}
                 </br>       
-            </form>    
-        </div>
+            </form>
 
-        <p>List of Products</p>
+        <p> My Orders </p>
+        <a href="{% url 'order_buyer' %}">
+        <button>Purchases</button>
+        </a>
+        <a href="{% url 'order_seller' %}">
+        <button>Sells</button>
+        </a>
+
+        <p id="id_product_list">  List of Products</p>
         {% for p in products %}
             <ul>
                 <img id = "id_product_picture1" src="{% url 'photo' p.id 1 %}" width="100px">  

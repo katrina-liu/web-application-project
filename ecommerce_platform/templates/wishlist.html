@@ -34,8 +34,8 @@
     {% for product in available_products %}
         <input type="checkbox" id="product_{{id}}" name="available_product" value="{{product.product_name}}">
         <label for="product_{{id}}"> 
-            <img src="{% url 'product_picture' product.id %}" style="width:100px;height:100px;">
-            <a href="{% url 'product_page' product.id %}"> {{ product.product_name }}</a>
+            <img src="{% url "photo" product.id 1 %}" style="width:100px;height:100px;">
+            <a href="{% url "product" product.id %}"> {{ product.product_name }}</a>
             <p>{{ product.product_price }}</p>
         </label><br>
         
@@ -44,6 +44,7 @@
 
     <br><br>
 
+    <div>
     <p>Items not available:</p>
     <a id = "id_remove" href="{% url 'home' %}">
         <button>Clear</button>
@@ -53,6 +54,7 @@
         <a href="{% url 'product_page' product.id %}"> {{ product.product_name }}</a>
         <p>{{ product.product_price }}</p>
     {% endfor %}
+    </div>>
 
 
 {% endblock %}

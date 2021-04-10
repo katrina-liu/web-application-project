@@ -6,9 +6,11 @@
 {% endblock %}
 
 {% block dropdown %}
+    <button class="browse_products">
     <a id = "id_browse_all_products" href = "{% url 'home' %}">
-        <button>Browse all Products</button>
+        Browse all Products
     </a>
+    </button>
     {% if user.is_authenticated %}
         <div class="dropdown">
             <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
@@ -34,16 +36,26 @@
 
 {% block body %}
     <div>
-        <div id = "id_product_name">{{product.product_name}}</div>
+        <p id = "id_product_name" style="font-size: 36px">{{product.product_name}}</p>
 
         <img id = "id_product_picture1" src="{% url 'photo' product.id 1 %}" width="200px">  
         <img id = "id_product_picture2" src="{% url 'photo' product.id 2 %}" width="200px">  
         <img id = "id_product_picture3" src="{% url 'photo' product.id 3 %}" width="200px">  
 
-        <div id = "id_product_price">{{product.product_price}}</div>
-        <div id = "id_product_description">{{product.product_description}}</div>
+        <p id = "id_product_price">Price: ${{product.product_price}}</p>
+        <p id = "id_product_description">{{product.product_description}}</p>
 
-        <p>Reviews:</p>
+
+        {% if user.is_authenticated %}
+            <a id = "id_add_to_wishlist" href="{% url 'add_to_wishlist' product.id %}">
+                <button>Add to Wishlist</button>
+            </a>
+            <a id = "id_add_to_cart" href="{% url 'add_to_shopping_cart' product.id %}">
+                <button>Add to Cart</button>
+            </a>
+        {% endif %}
+
+    <p>Reviews:</p>
         <ul>
         {% for r in reviews %}
             <ul>
@@ -52,15 +64,6 @@
             </ul>
         {% endfor %}
         </ul>
-
-        {% if user.is_authenticated %}
-            <a id = "id_add_to_wishlist" href="{% url 'wishlist' %}">
-                <button>Add to Wishlist</button>
-            </a>
-            <a id = "id_add_to_cart" href="{% url 'shopping_cart' %}">
-                <button>Add to Cart</button>
-            </a>
-        {% endif %}
 
     </div>
 

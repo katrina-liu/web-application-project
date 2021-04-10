@@ -26,6 +26,10 @@ a {
     color: white;
 }
 
+a:hover{
+    color: #f1f1f1;
+}
+
 /* Dropdown Button */
 .dropbtn {
     background-color: rgba(45,69,92,0.90);
@@ -46,7 +50,7 @@ a {
     position: relative;
     display: inline-block;
     float: right;
-    right: 2%;
+    right: 0;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -81,9 +85,8 @@ a {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 200px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
+  top: 115px; /* Stay at the top */
+  left: 7px;
   background-color: rgba(45,69,92,0.90); /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
@@ -93,9 +96,11 @@ a {
 .sidebar_nav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 22px;
   color: #dddddd;
   display: block;
+    text-align: left;
+    alignment: center;
 }
 
 /* When you mouse over the navigation links, change their color */
@@ -123,6 +128,7 @@ a {
   padding: 25px 50px;
   background-color: white;
     color: rgba(45,69,92,0.90);
+      z-index: 1; /* Stay on top */
 }
 
 #forms {
@@ -181,13 +187,31 @@ input[type=submit]:hover {
 }
 
 
+input[type=file] {
+    background-color: rgba(45,69,92,0.90);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+input[type=checkbox] {
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 30px;
+}
+
 .form-row {
     alignment: center;
 }
 
 .browse_products{
-    float: right;
-    right: 20%;
+    float: left;
+    margin-right: 10px;
 }
 
 label {
@@ -195,3 +219,40 @@ label {
     font-size: 18px;
 }
 
+#id_profile_name{
+    color: rgba(45,69,92,0.86);
+    font-size: 50px;
+}
+
+p{
+    color: rgba(45,69,92,0.86);
+    font-size: 30px;
+}
+
+a .product_name{
+    color: rgba(45,69,92,0.86);
+}
+
+.checkout {
+    text-align: right;
+}
+
+.products_display{
+    background-color: white;
+    position:fixed;
+    left: 100px;
+    width: 70%;
+    margin-top: 10px;
+    text-align: left;
+}
+.tile{
+    background-color: #dddddd;
+    width: 250px;
+    display: inline-block;
+    padding: 10px;
+    margin: 10px 50px 50px;
+}
+
+#id_product_name{
+    color: rgba(45,69,92,0.86);
+}
