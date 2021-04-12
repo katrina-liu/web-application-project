@@ -7,6 +7,13 @@ from django.contrib.auth.models import User
 
 # The model for each individual product
 class Product(models.Model):
+    CATEGORIES = [
+        ("Apparel", "Apparel"), 
+        ("Pet Supplies", "Pet Supplies"),
+        ("Home Goods", "Home Goods"),
+        ("Pet Supplies", "Pet Supplies"),
+        ("Electronics", "Electronics")
+    ]
     # Each product requires three pictures
     product_picture1 = models.ImageField(blank=True)
     product_picture2 = models.ImageField(blank=True)
@@ -18,7 +25,7 @@ class Product(models.Model):
     product_price = models.IntegerField()
     product_in_stock_quantity = models.IntegerField()
     product_availability = models.BooleanField(default=True)
-    product_category = models.CharField(max_length=50)
+    product_category = models.CharField(max_length=50, choices=CATEGORIES)
     product_seller = models.ForeignKey(User, on_delete=models.PROTECT)
 
 

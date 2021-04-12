@@ -26,7 +26,8 @@
 
 {% block body %}
     <div class="sidebar_nav">
-        <span id="id_category_label">Category</span>
+    <span id="id_category_label">Category</span>
+      <a href="{% url 'home' %}">All</a>
       <a href="{% url 'category' 'Apparel' %}">Apparel</a>
       <a href="{% url 'category' 'Home Goods' %}">Home Goods</a>
       <a href="{% url 'category' 'Pet Supplies' %}">Pet Supplies</a>
