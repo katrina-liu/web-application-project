@@ -300,3 +300,14 @@ def move_wishlist_to_cart(request, id):
     # add item to shopping cart
     cart.shopping_cart_product.add(product)
     return redirect(reverse('shopping_cart'))
+
+def move_cart_to_wishlist(request, id):
+    user = request.user
+    product = get_object_or_404(Product, id=id)
+    wishlist = get_object_or_404(Wishlist, wishlist_user=user)
+    cart = get_object_or_404(ShoppingCart, shopping_cart_user=user)
+    # delete item from shopping cart
+    cart.shopping_cart_product.remove(product)
+    # add item to wishlist
+    wishlist.wishlist_products.add(product)
+    return redirect(reverse('wishlist'))

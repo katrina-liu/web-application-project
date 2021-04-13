@@ -24,11 +24,6 @@
 {% block body %}
 
     <button>
-        <a id = "id_add_to_wishlist" href="{% url 'home' %}">
-            Move to Wishlist
-        </a>
-    </button>
-    <button>
         <a id = "id_remove" href="{% url 'home' %}">
             Remove
         </a>
@@ -47,6 +42,9 @@
                         {{ product.product_name }}</a>
                     <span class="small_price">Each Item Price: ${{ product.product_price }}</span>
             <p style="float:right; margin: 20px">
+                <a id = "id_add_to_cart" href="{% url 'move_cart_to_wishlist' product.id %}">
+                    <button>Add to Wishlist</button>
+                </a>
                 <label for="quantity">Quantity:</label>
                 <input type="number" class="quantity_box" id="id_quantity_{{product.id}}" name="quantity" min="1" value="1">
             </p>
