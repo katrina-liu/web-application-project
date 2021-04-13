@@ -289,3 +289,14 @@ def add_to_wish_list(request, product_id):
     wishlist = Wishlist.objects.all().get(wishlist_user=request.user)
     wishlist.wishlist_products.add(Product.objects.all().get(id=product_id))
     return redirect(reverse('wishlist'))
+
+def move_wishlist_to_cart(request, id):
+    user = request.user
+    product = get_object_or_404(Product, id=id)
+    wishlist = get_object_or_404(Wishlist, wishlist_user=user)
+    cart = get_object_or_404(ShoppingCart, shopping_cart_user=user)
+    # delete item from wishlist
+    wishlist.wishlist_products.remove(product)
+    # add item to shopping cart
+    cart.shopping_cart_product.add(product)
+    return redirect(reverse('shopping_cart'))

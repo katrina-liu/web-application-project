@@ -23,9 +23,6 @@
 
 {% block body %}
 
-    <a id = "id_add_to_cart" href="{% url 'home' %}">
-        <button>Add to Cart</button>
-    </a>
     <a id = "id_remove" href="{% url 'home' %}">
         <button>Remove</button>
     </a>
@@ -42,6 +39,9 @@
                         {{ product.product_name }}</a>
                     <span class="small_price">Price: ${{ product.product_price }}</span>
                 </label>
+                <a id = "id_add_to_cart" style="float:right; margin: 20px" href="{% url 'move_wishlist_to_cart' product.id %}">
+                    <button>Add to Cart</button>
+                </a>
             </td>
         </tr>
     {% endfor %}
