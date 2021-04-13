@@ -44,7 +44,7 @@
         {% else %}
             <img id = "id_user_picture" src = "{% static 'images/no-user-image.gif' %}">
         {% endif %}
-
+        <br>
             <form method="post" enctype="multipart/form-data" action="{% url 'edit-profile' %}">   
                 <input type="file" id="id_profile_picture" name="profile_picture" value="{{profile.profile_picture}}">
                 {% for error in field.errors %} {{error}} {% endfor %}
@@ -65,8 +65,12 @@
         <p id="id_product_list">  List of Products</p>
         {% for p in products %}
             <ul>
-                <img id = "id_product_picture1" src="{% url 'photo' p.id 1 %}" width="100px">  
-                <a id = "id_product_link_{{p.id}}" href="{% url 'product' p.id%}">{{p.product_name}}</a>
+                <img id = "id_product_picture1" src="{% url 'photo' p.id 1 %}" width="100px">
+                <br>
+                <p>
+                    <a id = "id_product_link_{{p.id}}" href="{% url 'product' p.id%}">{{p.product_name}}
+                    </a>
+                </p>
             </ul>
         {% endfor %}
 

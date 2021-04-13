@@ -31,7 +31,7 @@
     </a>
     <input type="checkbox" onClick="toggle(this)" />Select All<br/>
 
-    <table>
+    <table class="product_table">
     {% for product in available_products %}
         <tr>
             <td>
@@ -54,7 +54,7 @@
     <a id = "id_remove" href="{% url 'home' %}">
         <button>Clear</button>
     </a>
-    <table>
+    <table class="product_table">
         {% for product in unavailable_products %}
             <tr>
             <td>

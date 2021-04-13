@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block dropdown %}
-    <div>
+    <div class="right_button">
         <a id = "id_login_link" href="{% url 'login' %}">
             <button>Login</button>
         </a>
+    </div>
+    <div class="left_button">
         <a id = "id_browse_all_products" href = "{% url 'home' %}">
             <button>Browse all Products</button>
         </a>
@@ -17,7 +19,7 @@
 
 
 {% block body %}
-    <div id = "forms">
+    <div>
         <form method="post" action="{% url 'register' %}">
             <table>
                 {{form}}

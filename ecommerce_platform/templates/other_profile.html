@@ -46,7 +46,10 @@
             <ul>
                 <img id = "id_product_picture1" src="{% url 'photo' p.id 1 %}" width="100px">  
                 <br>
-                <a id = "id_product_link_{{p.id}}" style="color:darkgrey" href="{% url 'product' p.id%}">{{p.product_name}}</a>
+                <p>
+                    <a id = "id_product_link_{{p.id}}" href="{% url 'product' p.id%}">{{p.product_name}}
+                    </a>
+                </p>
             </ul>
         {% endfor %}
 

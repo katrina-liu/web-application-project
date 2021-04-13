@@ -5,8 +5,12 @@
 {% endblock %}
 
 {% block dropdown %}
+    <div class="left_button">
     <button id="id_browse_all_products"> <a href="{% url 'home' %}">Browse All Products</a></button>
+    </div>
+    <div class="right_button">
     <button id="id_register_button"><a href="{% url 'register' %}">Register</a></button>
+    </div>
 {% endblock %}
 
 {% block body %}

@@ -24,20 +24,26 @@
             </div>
         </div>
     {% else %}
+        <div class='left_button'>
         <a id = "id_login_link" href="{% url 'login' %}">
             <button>Login</button>
         </a>
+        </div>
+        <div class="right_button">
         <a id = "id_register_link" href="{% url 'register' %}">
             <button>Register</button>
         </a>
+        </div>
     {% endif %}
     
 {% endblock %}
 
 {% block body %}
     <div>
-        <p id = "id_product_name" style="font-size: 36px">{{product.product_name}}</p>
-        <a id = "id_seller_name"  href="{% url 'other_profile' product.product_seller.id %}">Seller: {{product.product_seller}}</a>
+        <p id = "id_product_name" style="font-size: 40px">{{product.product_name}}</p>
+        <p>
+            Seller: <a id = "id_seller_name"  href="{% url 'other_profile' product.product_seller.id %}">{{product.product_seller}}</a>
+        </p>
         <br><br>
         <img id = "id_product_picture1" src="{% url 'photo' product.id 1 %}" width="200px">  
         <img id = "id_product_picture2" src="{% url 'photo' product.id 2 %}" width="200px">  

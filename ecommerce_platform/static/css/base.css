@@ -172,6 +172,13 @@ input[type=password] {
   box-sizing: border-box;
 }
 
+input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
 input[type=submit] {
     background-color: rgba(45,69,92,0.90);
     color: white;
@@ -252,7 +259,7 @@ a .product_name{
     background-color: white;
     position:fixed;
     left: 100px;
-    width: 70%;
+    width: 65%;
     margin-top: 10px;
     text-align: left;
 }
@@ -261,7 +268,7 @@ a .product_name{
     width: 250px;
     display: inline-block;
     padding: 10px;
-    margin: 10px 50px 50px;
+    margin: 10px 30px 30px;
 }
 
 #id_product_name{
@@ -269,7 +276,34 @@ a .product_name{
     text-align: center;
 }
 
-table {
+
+
+.small_img{
+    vertical-align: middle;
+}
+
+p.small_price{
+    font-size: 26px;position: fixed; right: 10%;margin: 20px;
+}
+
+.right_button{
+    float: right;
+    z-index: 1;
+}
+
+.left_button{
+    float: left;
+}
+
+input[type=number].quantity_box{
+    width: 70px;
+  padding: 12px 20px;
+  margin: 8px 0;
+    display: inline-block;
+  box-sizing: border-box;
+}
+
+table.product_table {
     margin-top: 20px;
     width: 100%;
 }
@@ -282,12 +316,4 @@ tr {
 
 td {
     margin: 5px;
-}
-
-.small_img{
-    vertical-align: middle;
-}
-
-.small_price{
-    font-size: 26px;position: fixed; right: 10%;
 }
