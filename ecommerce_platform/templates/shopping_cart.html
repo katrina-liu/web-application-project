@@ -23,19 +23,10 @@
 
 {% block body %}
 
-    <button>
-        <a id = "id_remove" href="{% url 'home' %}">
-            Remove
-        </a>
-    </button>
-    <input type="checkbox" onClick="toggle(this)" />Select All<br/>
-
     <table class="product_table">
     {% for product in available_products %}
         <tr>
         <td>
-        <input type="checkbox" id="product_{{id}}" name="available_product" value="{{ product.product_price }}"
-               onclick="selectProduct()">
         <label for="product_{{id}}"> 
             <img class='small_img' src="{% url "photo" product.id 1 %}" style="width:100px;height:100px;">
                     <a href="{% url "product" product.id %}" style="font-size: 26px; color: rgba(45,69,92,0.86);">
@@ -44,6 +35,9 @@
             <p style="float:right; margin: 20px">
                 <a id = "id_add_to_cart" href="{% url 'move_cart_to_wishlist' product.id %}">
                     <button>Add to Wishlist</button>
+                </a>
+                <a id = "id_remove" style="float:right; margin: 20px" href="{% url 'remove_product_from_cart' product.id %}">
+                    <button>Remove</button>
                 </a>
                 <label for="quantity">Quantity:</label>
                 <input type="number" class="quantity_box" id="id_quantity_{{product.id}}" name="quantity" min="1" value="1">

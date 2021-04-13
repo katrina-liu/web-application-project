@@ -22,17 +22,10 @@
 {% endblock %}
 
 {% block body %}
-
-    <a id = "id_remove" href="{% url 'home' %}">
-        <button>Remove</button>
-    </a>
-    <input type="checkbox" onClick="toggle(this)" />Select All<br/>
-
     <table class="product_table">
     {% for product in available_products %}
         <tr>
             <td>
-                <input type="checkbox" id="product_{{id}}" name="available_product" value="{{product.product_name}}">
                 <label for="product_{{id}}">
                     <img class='small_img' src="{% url "photo" product.id 1 %}" style="width:100px;height:100px;">
                     <a href="{% url "product" product.id %}" style="font-size: 26px; color: rgba(45,69,92,0.86);">
@@ -41,6 +34,9 @@
                 </label>
                 <a id = "id_add_to_cart" style="float:right; margin: 20px" href="{% url 'move_wishlist_to_cart' product.id %}">
                     <button>Add to Cart</button>
+                </a>
+                <a id = "id_remove" style="float:right; margin: 20px" href="{% url 'remove_product_from_wishlist' product.id %}">
+                    <button>Remove</button>
                 </a>
             </td>
         </tr>

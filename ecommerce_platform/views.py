@@ -311,3 +311,19 @@ def move_cart_to_wishlist(request, id):
     # add item to wishlist
     wishlist.wishlist_products.add(product)
     return redirect(reverse('wishlist'))
+
+def remove_product_from_wishlist(request, id):
+    user = request.user
+    product = get_object_or_404(Product, id=id)
+    wishlist = get_object_or_404(Wishlist, wishlist_user=user)
+    # delete item from wishlist
+    wishlist.wishlist_products.remove(product)
+    return redirect(reverse('wishlist'))
+
+def remove_product_from_cart(request, id):
+    user = request.user
+    product = get_object_or_404(Product, id=id)
+    cart = get_object_or_404(ShoppingCart, shopping_cart_user=user)
+    # delete item from cart
+    cart.shopping_cart_product.remove(product)
+    return redirect(reverse('shopping_cart'))
