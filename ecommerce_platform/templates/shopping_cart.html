@@ -45,11 +45,11 @@
             <img class='small_img' src="{% url "photo" product.id 1 %}" style="width:100px;height:100px;">
                     <a href="{% url "product" product.id %}" style="font-size: 26px; color: rgba(45,69,92,0.86);">
                         {{ product.product_name }}</a>
-                    <span class="small_price">Price: ${{ product.product_price }}</span>
+                    <span class="small_price">Each Item Price: ${{ product.product_price }}</span>
             <p style="float:right; margin: 20px">
-            <label for="quantity">Quantity:</label>
-            <input type="number" class="quantity_box" id="id_quantity_{{product.id}}" name="quantity" min="1" value="1">
-                </p>
+                <label for="quantity">Quantity:</label>
+                <input type="number" class="quantity_box" id="id_quantity_{{product.id}}" name="quantity" min="1" value="1">
+            </p>
         </label><br>
         </td>
         </tr>
@@ -57,7 +57,7 @@
     {% endfor %}
     </table>
     <div class="checkout">
-        <p><span style="margin-right: 50px">Total Price: $<span id="id_total_price">0</span></span>
+        <p><span style="margin-right: 50px">Total Price: $<span id="id_total_price">{{total_price}}</span></span>
         <button id="id_check_out_button">
             <a href="{% url 'home' %}">Check Out</a>
         </button>

@@ -83,6 +83,9 @@ def shopping_cart_action(request):
         product_availability=False)
     context['available_products'] = available
     context['unavailable_products'] = other
+    context['total_price'] = 0
+    for item in available:
+        context['total_price'] += item.product_price
     return render(request, 'shopping_cart.html', context)
 
 
