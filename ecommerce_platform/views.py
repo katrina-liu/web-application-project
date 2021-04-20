@@ -229,7 +229,7 @@ def add_product_action(request):
         product_in_stock_quantity = form.cleaned_data[
             'product_in_stock_quantity']
         product_category = form.cleaned_data['product_category']
-        product_availability = True
+        product_availability = (product_in_stock_quantity > 0)
         product_seller = request.user
         product = Product(product_picture1=p1, product_picture2=p2,
                           product_picture3=p3,

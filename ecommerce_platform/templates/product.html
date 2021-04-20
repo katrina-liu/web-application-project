@@ -40,6 +40,9 @@
 {% block body %}
     <div>
         <p id = "id_product_name" style="font-size: 40px">{{product.product_name}}</p>
+        {% if product.product_availability == False %}
+            <p>Product not available</p>
+        {% endif %}
         <p>
             Seller: <a id = "id_seller_name"  href="{% url 'other_profile' product.product_seller.id %}">{{product.product_seller}}</a>
         </p>
