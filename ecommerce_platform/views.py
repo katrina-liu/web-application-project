@@ -243,6 +243,15 @@ def add_product_action(request):
         product.save()
     return redirect(reverse('home'))
 
+@login_required
+def edit_product_action(request, id):
+    context = {}
+    product = get_object_or_404(Product, id=id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, product)
+        context['form'] = form
+    return render(request, 'add_product.html', context)
+
 
 def check_out_action(request):
     context = {}

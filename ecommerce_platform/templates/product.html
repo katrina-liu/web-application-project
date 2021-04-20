@@ -40,13 +40,17 @@
 {% block body %}
     <div>
         <p id = "id_product_name" style="font-size: 40px">{{product.product_name}}</p>
-        {% if product.product_availability == False %}
-            <p>Product not available</p>
-        {% endif %}
         <p>
             Seller: <a id = "id_seller_name"  href="{% url 'other_profile' product.product_seller.id %}">{{product.product_seller}}</a>
         </p>
+
+        {% if product.product_seller == user %}
+            <a id = "id_edit_product" href="{% url 'edit_product' product.id %}">
+                <button>Edit Product</button>
+            </a>
+        {% endif %}
         <br><br>
+
         <img id = "id_product_picture1" src="{% url 'photo' product.id 1 %}" width="200px" height="250px">  
         <img id = "id_product_picture2" src="{% url 'photo' product.id 2 %}" width="200px" height="250px">  
         <img id = "id_product_picture3" src="{% url 'photo' product.id 3 %}" width="200px" height="250px">   
@@ -56,12 +60,16 @@
 
 
         {% if user.is_authenticated %}
+            {% if product.product_availability == True %}
             <a id = "id_add_to_wishlist" href="{% url 'add_to_wishlist' product.id %}">
                 <button>Add to Wishlist</button>
             </a>
             <a id = "id_add_to_cart" href="{% url 'add_to_shopping_cart' product.id %}">
                 <button>Add to Cart</button>
             </a>
+            {% else %}
+                <p>Product not available</p>
+            {% endif %}
         {% endif %}
 
     <p>Reviews:</p>
