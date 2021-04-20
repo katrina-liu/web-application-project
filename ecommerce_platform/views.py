@@ -327,3 +327,15 @@ def remove_product_from_cart(request, id):
     # delete item from cart
     cart.shopping_cart_product.remove(product)
     return redirect(reverse('shopping_cart'))
+
+def clear_shopping_cart(request):
+    user = request.user
+    cart = get_object_or_404(ShoppingCart, shopping_cart_user=user)
+    cart.shopping_cart_product.clear()
+    return redirect(reverse('shopping_cart'))
+
+def clear_wishlist(request):
+    user = request.user
+    wishlist = get_object_or_404(Wishlist, wishlist_user=user)
+    wishlist.wishlist_products.clear()
+    return redirect(reverse('wishlist'))

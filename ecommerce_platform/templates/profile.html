@@ -69,7 +69,7 @@
                 <div class="mySlides fade">
                     <img id = "id_product_picture1" src="{% url 'photo' p.id 1 %}" width="200px" height="200px">
                     <div class="text">
-                        <p><a class="text"id = "id_product_link_{{p.id}}" href="{% url 'product' p.id%}">{{p.product_name}}</a></p>
+                        <p><a id = "id_product_link_{{p.id}}" href="{% url 'product' p.id%}">{{p.product_name}}</a></p>
                     </div>
                 </div>
             {% endfor %}
