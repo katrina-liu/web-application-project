@@ -4,7 +4,14 @@
     Shopping Cart
 {% endblock %}
 
-{% block dropdown %}
+{% block dropdown %}  
+    <br>
+    <button class="browse_products">
+        <a id = "id_browse_all_products" href = "{% url 'home' %}">
+            Browse all Products
+        </a>
+    </button>
+    <br>
     {% if user.is_authenticated %}
         <div class="dropdown">
             <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">

@@ -5,8 +5,16 @@
 {% endblock %}
 
 {% block dropdown %}
+    <br>
+    <button class="browse_products">
+        <a id = "id_browse_all_products" href = "{% url 'home' %}">
+            Browse all Products
+        </a>
+    </button>
+    <br>
     {% if user.is_authenticated %}
         <div class="dropdown">
+            <br>
             <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
                 Navigation
             </button>
@@ -22,9 +30,11 @@
 {% endblock %}
 
 {% block body %}
+    <br>    
     <table class="product_table">
-    {% for product in available_products %}
+    {% for product in available_products %}   
         <tr>
+            <br>    
             <td>
                 <label for="product_{{id}}">
                     <img class='small_img' src="{% url "photo" product.id 1 %}" style="width:100px;height:100px;">

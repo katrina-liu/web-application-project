@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+<script src="{% static 'js/base.js' %}"> </script>
 
 {% block title %}
     Product Page
@@ -43,9 +44,9 @@
             Seller: <a id = "id_seller_name"  href="{% url 'other_profile' product.product_seller.id %}">{{product.product_seller}}</a>
         </p>
         <br><br>
-        <img id = "id_product_picture1" src="{% url 'photo' product.id 1 %}" width="200px">  
-        <img id = "id_product_picture2" src="{% url 'photo' product.id 2 %}" width="200px">  
-        <img id = "id_product_picture3" src="{% url 'photo' product.id 3 %}" width="200px">  
+        <img id = "id_product_picture1" src="{% url 'photo' product.id 1 %}" width="200px" height="250px">  
+        <img id = "id_product_picture2" src="{% url 'photo' product.id 2 %}" width="200px" height="250px">  
+        <img id = "id_product_picture3" src="{% url 'photo' product.id 3 %}" width="200px" height="250px">   
 
         <p id = "id_product_price">Price: ${{product.product_price}}</p>
         <p id = "id_product_description">{{product.product_description}}</p>

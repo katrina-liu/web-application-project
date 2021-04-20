@@ -42,16 +42,23 @@
         {% endif %}
 
         <p>List of Products</p>
-        {% for p in products %}
-            <ul>
-                <img id = "id_product_picture1" src="{% url 'photo' p.id 1 %}" width="100px">  
-                <br>
-                <p>
-                    <a id = "id_product_link_{{p.id}}" href="{% url 'product' p.id%}">{{p.product_name}}
-                    </a>
-                </p>
-            </ul>
-        {% endfor %}
+        <div class="slideshow-container">
+            
+            {% for p in products %}
+                <div class="mySlides fade">
+                    <img id = "id_product_picture1" src="{% url 'photo' p.id 1 %}" width="200px" height="200px">
+                    <div class="text">
+                        <p><a id = "id_product_link_{{p.id}}" href="{% url 'product' p.id%}">{{p.product_name}}</a></p>
+                    </div>
+                </div>
+            {% endfor %}
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <script>
+            var slideIndex = 1;
+            showSlides(slideIndex);
+        </script>
 
     </div>
 
