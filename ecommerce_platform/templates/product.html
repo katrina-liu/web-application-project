@@ -41,12 +41,19 @@
     <div>
         <p id = "id_product_name" style="font-size: 40px">{{product.product_name}}</p>
         <p>
-            Seller: <a id = "id_seller_name"  href="{% url 'other_profile' product.product_seller.id %}">{{product.product_seller}}</a>
+            {% if product.product_seller == user %}
+                Seller: <a id = "id_seller_name"  href="{% url 'profile' %}">{{product.product_seller}}</a>
+            {% else %}
+                Seller: <a id = "id_seller_name"  href="{% url 'other_profile' product.product_seller.id %}">{{product.product_seller}}</a>
+            {% endif %}
         </p>
 
         {% if product.product_seller == user %}
             <a id = "id_edit_product" href="{% url 'edit_product' product.id %}">
                 <button>Edit Product</button>
+            </a>
+            <a id = "id_delete_product" href="{% url 'delete_product' product.id %}">
+                <button>Delete Product</button>
             </a>
         {% endif %}
         <br><br>
@@ -81,7 +88,6 @@
             </ul>
         {% endfor %}
         </ul>
-
     </div>
 
 {% endblock %}

@@ -245,12 +245,23 @@ def add_product_action(request):
 
 @login_required
 def edit_product_action(request, id):
-    context = {}
     product = get_object_or_404(Product, id=id)
-    if request.method == 'POST':
-        form = ProductForm(request.POST, product)
-        context['form'] = form
-    return render(request, 'add_product.html', context)
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            p = form.save(commit=False)
+            p.product_seller = request.user
+            p.save()
+            return render(request, 'product.html', {'form': form})
+    else:
+        form = ProductForm(instance=product)
+    return render(request, 'add_product.html', {'form': form})
+
+@login_required
+def delete_product_action(request, id):
+    product = get_object_or_404(Product, id=id)
+    product.delete()
+    return redirect(reverse('home'))
 
 
 def check_out_action(request):
