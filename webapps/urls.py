@@ -52,7 +52,7 @@ urlpatterns = [
     path('remove_product_from_wishlist/<int:id>', views.remove_product_from_wishlist, name = "remove_product_from_wishlist"),
     path('remove_product_from_cart/<int:id>', views.remove_product_from_cart, name = "remove_product_from_cart"),
     path('clear_shopping_cart', views.clear_shopping_cart, name = "clear_shopping_cart"),
-    path('clear_wishlist', views.clear_wishlist, name = "clear_wishlist")
+    path('clear_wishlist', views.clear_wishlist, name = "clear_wishlist"),
     path('cancel_order=<int:id>', views.cancel_order, name="cancel_order"),
     path('confirm_order=<int:id>', views.confirm_order, name='confirm_order'),
     path('review/<int:id>', views.review_action, name='review')
