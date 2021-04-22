@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ecommerce_platform',
+    'paypal.standard.ipn'
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
 
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+
+PAYPAL_RECEIVER_EMAIL = 'sb-nmsk25988765@business.example.com'
+
+PAYPAL_TEST = True

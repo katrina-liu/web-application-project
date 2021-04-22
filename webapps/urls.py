@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ecommerce_platform import views
+from django.conf.urls import url, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -55,5 +56,9 @@ urlpatterns = [
     path('clear_wishlist', views.clear_wishlist, name = "clear_wishlist"),
     path('cancel_order=<int:id>', views.cancel_order, name="cancel_order"),
     path('confirm_order=<int:id>', views.confirm_order, name='confirm_order'),
-    path('review/<int:id>', views.review_action, name='review')
+    path('review/<int:id>', views.review_action, name='review'),
+    path('paypal/', include('paypal.standard.ipn.urls')),
+    path('process-payment/', views.process_payment, name='process_payment'),
+    path('payment-done/', views.payment_done, name='payment_done'),
+    path('payment-cancelled/', views.payment_canceled, name='payment_cancelled')
 ]

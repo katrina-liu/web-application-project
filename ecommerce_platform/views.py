@@ -7,6 +7,11 @@ from ecommerce_platform.forms import *
 from ecommerce_platform.models import *
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.conf import settings
+from decimal import Decimal
+from paypal.standard.forms import PayPalPaymentsForm
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 # Create your views here.
@@ -292,13 +297,14 @@ def check_out_action(request):
         new_order.ongoing = True
         new_order.save()
         new_order.item.add(product)
+        request.session['order_id'] = new_order.id
         print(product)
         product.product_in_stock_quantity -= 1
         if product.product_in_stock_quantity > 0:
             product.product_availability = True
         shopping_cart_products.remove(product)
-    # return render(request, 'transaction.html', context)
-    return redirect(reverse('order_buyer'))
+    
+    return redirect(reverse('process_payment'))
 
 
 def change_category(request, category):
@@ -435,3 +441,36 @@ def review_action(request, id):
         review.save()
     return redirect(reverse('home'))
 
+def process_payment(request):
+    print("IM IN PROCESspYMENT")
+    order_id = request.session.get('order_id')
+    print(order_id)
+    order = get_object_or_404(Order, id=order_id)
+    host = request.get_host()
+
+    paypal_dict = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': '%.2f' % order.total_cost().quantize(
+            Decimal('.01')),
+        'item_name': 'Order {}'.format(order.id),
+        'invoice': str(order.id),
+        'currency_code': 'USD',
+        'notify_url': 'http://{}{}'.format(host,
+                                           reverse('paypal-ipn')),
+        'return_url': 'http://{}{}'.format(host,
+                                           reverse('payment_done')),
+        'cancel_return': 'http://{}{}'.format(host,
+                                              reverse('payment_cancelled')),
+    }
+
+    form = PayPalPaymentsForm(initial=paypal_dict)
+    return render(request, 'process_payment.html', {'order': order, 'form': form})
+
+@csrf_exempt
+def payment_done(request):
+    return render(request, 'payment_done.html')
+
+
+@csrf_exempt
+def payment_canceled(request):
+    return render(request, 'ecommerce_app/payment_cancelled.html')
