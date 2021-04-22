@@ -287,6 +287,7 @@ def check_out_action(request):
         shopping_cart_user=request.user).shopping_cart_product
     available_products = shopping_cart_products.filter(
         product_availability=True)
+    cost = 0
     for product in available_products:
         product.product_availability = False
         new_order = Order()
@@ -297,13 +298,15 @@ def check_out_action(request):
         new_order.ongoing = True
         new_order.save()
         new_order.item.add(product)
-        request.session['order_id'] = new_order.id
         print(product)
         product.product_in_stock_quantity -= 1
+        cost += product.product_price
         if product.product_in_stock_quantity > 0:
             product.product_availability = True
         shopping_cart_products.remove(product)
-    
+    paypal_order = PaypalOrder(total=cost)
+    request.session['order_id'] = paypal_order.id
+
     return redirect(reverse('process_payment'))
 
 
@@ -445,7 +448,7 @@ def process_payment(request):
     print("IM IN PROCESspYMENT")
     order_id = request.session.get('order_id')
     print(order_id)
-    order = get_object_or_404(Order, id=order_id)
+    order = get_object_or_404(PaypalOrder, id=order_id)
     host = request.get_host()
 
     paypal_dict = {
@@ -473,4 +476,4 @@ def payment_done(request):
 
 @csrf_exempt
 def payment_canceled(request):
-    return render(request, 'ecommerce_app/payment_cancelled.html')
+    return render(request, 'payment_cancelled.html')

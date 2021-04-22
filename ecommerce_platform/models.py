@@ -78,3 +78,19 @@ class Order(models.Model):
 
     def __str__(self):
         return "Order ID: "+str(self.id)+"Ongoing: "+str(self.ongoing)
+
+
+class PaypalOrder(models.Model):
+    # name = models.CharField(max_length=191)
+    # email = models.EmailField()
+    # postal_code = models.IntegerField()
+    # address = models.CharField(max_length=191)
+    # date = models.DateTimeField(auto_now_add=True)
+    total = models.IntegerField()
+    #paid = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{}".format(self.id)
+
+    def total_cost(self):
+        return self.total
