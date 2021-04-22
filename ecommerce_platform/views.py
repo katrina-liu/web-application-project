@@ -252,16 +252,22 @@ def add_product_action(request):
 @login_required
 def edit_product_action(request, id):
     product = get_object_or_404(Product, id=id)
+    context= {}
     if request.method == "POST":
         form = ProductForm(request.POST, instance=product)
+        context['form'] = form
+        reviews = Review.objects.filter(review_product=product).order_by('-id')
+        context['reviews'] = reviews
         if form.is_valid():
             p = form.save(commit=False)
             p.product_seller = request.user
             p.save()
-            return render(request, 'product.html', {'form': form})
+            context['product'] = p
+            return render(request, 'product.html', context)
     else:
         form = ProductForm(instance=product)
-    return render(request, 'add_product.html', {'form': form})
+        context['form'] = form
+    return render(request, 'add_product.html', context)
 
 @login_required
 def delete_product_action(request, id):
