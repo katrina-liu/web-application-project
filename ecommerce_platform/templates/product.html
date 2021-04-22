@@ -78,12 +78,15 @@
         {% endif %}
 
     <p>Reviews:</p>
-        <ul>
+    <div class="review_display">
+        <table class="review_table">
         {% for r in reviews %}
-            <ul>
-                <a id = "id_profile_link_{{r.review_reviewer.username}}" href="{% url 'profile' r.review_reviewer.id%}">{{r.review_reviewer.first_name}} {{r.review_reviewer.last_name}}</a>
-                {{review_content}}
-            </ul>
+            <tr><td>
+                <a id = "id_profile_link_{{r.review_reviewer.username}}" href="{% url 'other_profile' r.review_reviewer.id%}">
+                    <span style="color: rgba(45,69,92,0.86)">{{r.review_reviewer.first_name}} {{r.review_reviewer.last_name}}</span>
+                </a>
+                :{{r.review_content}}
+            </td></tr>
         {% endfor %}
         </ul>
     </div>
