@@ -1,5 +1,6 @@
 body{
     background-color: #dddddd;
+    overflow: scroll;
 }
 
 button{
@@ -109,9 +110,17 @@ a:hover{
 }
 
 /* Style page content */
-.products_display {
+div.products_display {
   margin-left: 160px; /* Same as the width of the sidebar */
+    margin-right: 100px;
   padding: 0px 10px;
+    overflow: auto;
+    background-color: white;
+    position:fixed;
+    left: 70px;
+    width: 68%;
+    margin-top: 10px;
+    text-align: left;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
@@ -255,14 +264,7 @@ a .product_name{
     text-align: right;
 }
 
-.products_display{
-    background-color: white;
-    position:fixed;
-    left: 100px;
-    width: 65%;
-    margin-top: 10px;
-    text-align: left;
-}
+
 .tile{
     background-color: #dddddd;
     width: 250px;
@@ -308,6 +310,11 @@ table.product_table {
     width: 100%;
 }
 
+table.order_table {
+    margin-left: 200px;
+    width: 65%;
+}
+
 tr {
     background-color: white;
     margin-top: 20px;
@@ -316,4 +323,15 @@ tr {
 
 td {
     margin: 5px;
+}
+
+
+div.review_display{
+    width: 100%;
+}
+table.review_table{
+    margin-top: 20px;
+    width: 60%;
+    font-size: 20px;
+    margin-left: 20%;
 }

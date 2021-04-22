@@ -75,3 +75,6 @@ class Order(models.Model):
     quantity = models.IntegerField()
     total_price = models.IntegerField()
     ongoing = models.BooleanField()
+
+    def __str__(self):
+        return "Order ID: "+str(self.id)+"Ongoing: "+str(self.ongoing)

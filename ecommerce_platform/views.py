@@ -14,7 +14,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 def home_action(request):
     context = {}
-    context['products'] = Product.objects.all().order_by('-id')
+    context['products'] = Product.objects.all().filter(
+        product_availability=True).order_by('-id')
     return render(request, 'home.html', context)
 
 
@@ -170,6 +171,7 @@ def get_photo(request, id, pid):
         else:
             return HttpResponse(item.product_picture3)
 
+
 def get_profile_photo(request, id):
     item = get_object_or_404(Profile, id=id)
     if not item.profile_picture:
@@ -189,7 +191,11 @@ def order_buyer_action(request):
     context = {}
     order_type = 'ongoing'
     order_list = Order.objects.all().filter(buyer=request.user, ongoing=True)
+    print(order_list)
     context['order_list'] = order_list
+    for order in order_list:
+        print(order.item.all())
+    context["products"] = Product.objects.all()
     return render(request, 'order_buyer.html', context)
 
 
@@ -246,7 +252,27 @@ def add_product_action(request):
 
 def check_out_action(request):
     context = {}
-    return render(request, 'transaction.html', context)
+    shopping_cart_products = ShoppingCart.objects.all().get(
+        shopping_cart_user=request.user).shopping_cart_product
+    available_products = shopping_cart_products.filter(
+        product_availability=True)
+    for product in available_products:
+        product.product_availability = False
+        new_order = Order()
+        new_order.buyer = request.user
+        new_order.seller = product.product_seller
+        new_order.quantity = 1
+        new_order.total_price = product.product_price
+        new_order.ongoing = True
+        new_order.save()
+        new_order.item.add(product)
+        print(product)
+        product.product_in_stock_quantity -= 1
+        if product.product_in_stock_quantity > 0:
+            product.product_availability = True
+        shopping_cart_products.remove(product)
+    # return render(request, 'transaction.html', context)
+    return redirect(reverse('order_buyer'))
 
 
 def change_category(request, category):
@@ -259,12 +285,18 @@ def change_category(request, category):
 def buy_change_ongoing(request, ongoing):
     context = {}
     if ongoing == 1:
+        order_ongoing = True
         order_list = Order.objects.all().filter(buyer=request.user,
                                                 ongoing=True)
     else:
+        order_ongoing = False
         order_list = Order.objects.all().filter(buyer=request.user,
                                                 ongoing=False)
+    context['ongoing'] = order_ongoing
     context['order_list'] = order_list
+    print(order_list)
+    print(Order.objects.all())
+    context["products"] = Product.objects.all()
     return render(request, 'order_buyer.html', context)
 
 
@@ -277,18 +309,23 @@ def sell_change_ongoing(request, ongoing):
         order_list = Order.objects.all().filter(seller=request.user,
                                                 ongoing=False)
     context['order_list'] = order_list
+    context["products"] = Product.objects.all()
     return render(request, 'order_seller.html', context)
 
 
 def add_to_shopping_cart(request, product_id):
-    shopping_cart = ShoppingCart.objects.all().get(shopping_cart_user=request.user)
-    shopping_cart.shopping_cart_product.add(Product.objects.all().get(id=product_id))
+    shopping_cart = ShoppingCart.objects.all().get(
+        shopping_cart_user=request.user)
+    shopping_cart.shopping_cart_product.add(
+        Product.objects.all().get(id=product_id))
     return redirect(reverse('shopping_cart'))
+
 
 def add_to_wish_list(request, product_id):
     wishlist = Wishlist.objects.all().get(wishlist_user=request.user)
     wishlist.wishlist_products.add(Product.objects.all().get(id=product_id))
     return redirect(reverse('wishlist'))
+
 
 def move_wishlist_to_cart(request, id):
     user = request.user
@@ -301,6 +338,7 @@ def move_wishlist_to_cart(request, id):
     cart.shopping_cart_product.add(product)
     return redirect(reverse('shopping_cart'))
 
+
 def move_cart_to_wishlist(request, id):
     user = request.user
     product = get_object_or_404(Product, id=id)
@@ -311,3 +349,36 @@ def move_cart_to_wishlist(request, id):
     # add item to wishlist
     wishlist.wishlist_products.add(product)
     return redirect(reverse('wishlist'))
+
+
+def cancel_order(request, id):
+    order = Order.objects.all().get(id=id)
+    for product in order.item.all():
+        product.product_in_stock_quantity += 1
+    order.delete()
+    return redirect(reverse('order_buyer'))
+
+
+def confirm_order(request, id):
+    order = Order.objects.all().get(id=id)
+    order.ongoing = False
+    print(order)
+    order.save()
+    return redirect(reverse('order_buyer'))
+
+
+def review_action(request, id):
+    context = {}
+    product = Product.objects.get(id=id)
+    context['product'] = product
+    if request.method == "GET":
+        form = ReviewForm
+        context['form'] = form
+        return render(request, 'review.html', context)
+    form = ReviewForm(request.POST)
+    if form.is_valid():
+        review = Review(review_product=product, review_content=form.cleaned_data['review_content'],
+                        review_reviewer=request.user)
+        review.save()
+    return redirect(reverse('home'))
+

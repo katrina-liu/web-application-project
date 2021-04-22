@@ -24,17 +24,40 @@
         <a href="{% url 'order_buy' 1 %}">Ongoing Order</a>
         <a href="{% url 'order_buy' 0 %}">Previous Order</a>
     </div>
+    <div class="products_display">
+    <table class="order_table">
         {% for order in order_list %}
-            <div>
-            <span id="id_order_{{ order.id }}"> Order Number: {{ order.id }}</span>
-            <button id="id_order_cancel_button_{{ order.id }}">Cancel</button>
-            <button id="id_order_received_button_{{ order.id }}">Received</button>
-            {% for product in order.product %}
-                <img src="{% url "product_picture" product.id %}" style="width:50px;height:50px;">
-                <span id="id_product_name_{{ product.id }}"> {{ product.name }}</span>
-                <span id="id_product_price_{{ product.id }}"> $ {{ product.price }}</span>
-            {% endfor %}
-            <div>
-        {% endfor %}
+            <tr>
+            <td>
+            <p id="id_order_{{ order.id }}"> Order Number: {{ order.id }}
+                {% if order.ongoing %}
+            <button id="id_order_cancel_button_{{ order.id }}">
+                <a href="{% url 'cancel_order' order.id %}">Cancel</a>
+            </button>
+            <button id="id_order_received_button_{{ order.id }}">
+                <a href="{% url 'confirm_order' order.id %}">Received</a>
+            </button>
+                {% endif %}
+            </p>
+            {% for product in products %}
+                {% if product in order.item.all %}
+                    <p>
+                <img src="{% url "photo" product.id 1 %}" style="width:50px;height:50px;">
+                <span id="id_product_name_{{ product.id }}"> {{ product.product_name }}</span>
+                <span id="id_product_price_{{ product.id }}"> $ {{ product.product_price }}</span>
+                    {% if not order.ongoing %}
+                        <a href="{% url 'review' product.id %}">
+            <button id="id_review_product_{{ product.id }}">Review Product</button>
+                        </a>
+                        {% endif %}
+                    </p>
 
+                {% endif %}
+            {% endfor %}
+
+            </td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
 {% endblock %}

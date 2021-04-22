@@ -44,7 +44,13 @@ urlpatterns = [
          name='add_to_wishlist'),
     path('add_to_shopping_cart=<int:product_id>', views.add_to_shopping_cart,
          name='add_to_shopping_cart'),
-    path('get_profile_photo/<int:id>', views.get_profile_photo, name = "profile_photo"),
-    path('move_wishlist_to_cart/<int:id>', views.move_wishlist_to_cart, name = "move_wishlist_to_cart"),
-    path('move_cart_to_wishlist/<int:id>', views.move_cart_to_wishlist, name = "move_cart_to_wishlist")
+    path('get_profile_photo/<int:id>', views.get_profile_photo,
+         name="profile_photo"),
+    path('move_wishlist_to_cart/<int:id>', views.move_wishlist_to_cart,
+         name="move_wishlist_to_cart"),
+    path('move_cart_to_wishlist/<int:id>', views.move_cart_to_wishlist,
+         name="move_cart_to_wishlist"),
+    path('cancel_order=<int:id>', views.cancel_order, name="cancel_order"),
+    path('confirm_order=<int:id>', views.confirm_order, name='confirm_order'),
+    path('review/<int:id>', views.review_action, name='review')
 ]

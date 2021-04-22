@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Review
+{% endblock %}
+
+{% block dropdown %}
+    <div class="dropdown">
+            <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
+                Navigation
+            </button>
+            <div class="dropdown-content" id="id_dropdown_content">
+                <a id="id_nav_shopping_cart_link" href="{% url 'shopping_cart' %}">Shopping Cart</a>
+                <a id="id_nav_wishlist_link" href="{% url 'wishlist' %}">Wishlist</a>
+                <a id="id_nav_profile" href="{% url 'profile' %}">My profile</a>
+                <a id="id_nav_logout" href="{% url 'logout' %}">Logout</a>
+            </div>
+    </div>
+{% endblock %}
+
+
+{% block body %}
+    <div>
+        <p id = "id_product_name" style="font-size: 40px">{{product.product_name}}</p>
+        <p>
+            Seller: <a id = "id_seller_name"  href="{% url 'other_profile' product.product_seller.id %}">{{product.product_seller}}</a>
+        </p>
+        <br><br>
+        <img id = "id_product_picture1" src="{% url 'photo' product.id 1 %}" width="200px">
+        <img id = "id_product_picture2" src="{% url 'photo' product.id 2 %}" width="200px">
+        <img id = "id_product_picture3" src="{% url 'photo' product.id 3 %}" width="200px">
+
+        <p id = "id_product_price">Price: ${{product.product_price}}</p>
+        <p id = "id_product_description">{{product.product_description}}</p>
+
+
+        <form id="id_review_form" method="post">
+            {{ form }}
+            {% csrf_token %}
+            <button type="submit">Post</button>
+        </form>
+
+    </div>
+{% endblock %}
