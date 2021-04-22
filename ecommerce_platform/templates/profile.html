@@ -6,11 +6,9 @@
 {% endblock %}
 
 {% block dropdown %}
-    <button class="browse_products">
-        <a id = "id_browse_all_products" href = "{% url 'home' %}">
-            Browse all Products
-        </a>
-    </button>
+    <a id = "id_browse_all_products" style="float:left" href = "{% url 'home' %}">
+        <button>Browse All Products</button>
+    </a>
     {% if user.is_authenticated %}
         <div class="dropdown">
             <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
@@ -80,7 +78,7 @@
             var slideIndex = 1;
             showSlides(slideIndex);
         </script>
-
+        <br>
         <a id = "id_add_product" href="{% url 'add_product' %}">
             <button>Add Product</button>
         </a>

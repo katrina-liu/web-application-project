@@ -6,11 +6,9 @@
 
 {% block dropdown %}
     <br>
-    <button class="browse_products">
-        <a id = "id_browse_all_products" href = "{% url 'home' %}">
-            Browse all Products
-        </a>
-    </button>
+    <a id = "id_browse_all_products" style="float:left" href = "{% url 'home' %}">
+        <button>Browse All Products</button>
+    </a>
     
     <br>
     {% if user.is_authenticated %}
