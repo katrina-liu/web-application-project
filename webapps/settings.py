@@ -125,6 +125,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
-PAYPAL_RECEIVER_EMAIL = 'sb-nmsk25988765@business.example.com'
+PAYPAL_RECEIVER_EMAIL = 'sb-rei4475992275@business.example.com'
 
 PAYPAL_TEST = True

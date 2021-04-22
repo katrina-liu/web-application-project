@@ -305,8 +305,8 @@ def check_out_action(request):
             product.product_availability = True
         shopping_cart_products.remove(product)
     paypal_order = PaypalOrder(total=cost)
+    paypal_order.save()
     request.session['order_id'] = paypal_order.id
-
     return redirect(reverse('process_payment'))
 
 
@@ -445,16 +445,13 @@ def review_action(request, id):
     return redirect(reverse('home'))
 
 def process_payment(request):
-    print("IM IN PROCESspYMENT")
     order_id = request.session.get('order_id')
-    print(order_id)
     order = get_object_or_404(PaypalOrder, id=order_id)
     host = request.get_host()
 
     paypal_dict = {
         'business': settings.PAYPAL_RECEIVER_EMAIL,
-        'amount': '%.2f' % order.total_cost().quantize(
-            Decimal('.01')),
+        'amount': '%d' % order.total_cost(),
         'item_name': 'Order {}'.format(order.id),
         'invoice': str(order.id),
         'currency_code': 'USD',

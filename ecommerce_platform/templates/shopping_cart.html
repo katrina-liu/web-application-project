@@ -58,9 +58,9 @@
     </table>
     <div class="checkout">
         <p><span style="margin-right: 50px">Total Price: $<span id="id_total_price">{{total_price}}</span></span>
-        <button type="submit" id="id_check_out_button">
-            <a href="{% url 'check_out' %}">Check Out</a>
-        </button>
+        <a id = "id_check_out_button" href="{% url 'check_out' %}">
+            <button>Check Out</button>
+        </a>
     </p>
     </div>
     <br><br>
