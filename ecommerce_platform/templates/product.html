@@ -68,15 +68,15 @@
 
         {% if user.is_authenticated %}
             {% if product.product_availability == True %}
-            <a id = "id_add_to_wishlist" href="{% url 'add_to_wishlist' product.id %}">
-                <button>Add to Wishlist</button>
-            </a>
             <a id = "id_add_to_cart" href="{% url 'add_to_shopping_cart' product.id %}">
                 <button>Add to Cart</button>
             </a>
             {% else %}
                 <p>Product not available</p>
             {% endif %}
+            <a id = "id_add_to_wishlist" href="{% url 'add_to_wishlist' product.id %}">
+                <button>Add to Wishlist</button>
+            </a>
         {% endif %}
 
     <p>Reviews:</p>

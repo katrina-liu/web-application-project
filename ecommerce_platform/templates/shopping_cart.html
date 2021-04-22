@@ -17,6 +17,9 @@
             <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
                 Navigation
             </button>
+            <a id = "id_remove" href="{% url 'clear_shopping_cart' %}">
+                <button>Clear</button>
+            </a>
             <div class="dropdown-content" id="id_dropdown_content">
                 <a id="id_nav_shopping_cart_link" href="{% url 'shopping_cart' %}">Shopping Cart</a>
                 <a id="id_nav_wishlist_link" href="{% url 'wishlist' %}">Wishlist</a>
@@ -62,29 +65,6 @@
         </button>
     </p>
     </div>
-
-
     <br><br>
-
-    <div>
-    <p>Items not available:</p>
-    <a id = "id_remove" href="{% url 'clear_shopping_cart' %}">
-        <button>Clear</button>
-    </a>
-    <table class="product_table">
-        {% for product in unavailable_products %}
-            <tr>
-            <td>
-                <img class='small_img' src="{% url "photo" product.id 1 %}" style="width:100px;height:100px;">
-                    <a href="{% url "product" product.id %}" style="font-size: 26px; color: rgba(45,69,92,0.86);">
-                        {{ product.product_name }}</a>
-                    <span class="small_price">Price: ${{ product.product_price }}</span>
-            </td>
-            </tr>
-
-        {% endfor %}
-    </table>
-    </div>
-
 
 {% endblock %}
