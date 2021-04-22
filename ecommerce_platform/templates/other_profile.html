@@ -46,10 +46,10 @@
             
             {% for p in products %}
                 <div class="mySlides fade">
-                    <img id = "id_product_picture1" src="{% url 'photo' p.id 1 %}" width="200px" height="200px">
                     <div class="text">
-                        <p><a id = "id_product_link_{{p.id}}" href="{% url 'product' p.id%}">{{p.product_name}}</a></p>
+                        <a id = "id_product_link_{{p.id}}" href="{% url 'product' p.id%}">{{p.product_name}}</a>
                     </div>
+                    <img id = "id_product_picture1" src="{% url 'photo' p.id 1 %}" width="200px" height="200px">
                 </div>
             {% endfor %}
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>

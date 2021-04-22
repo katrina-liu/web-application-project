@@ -28,11 +28,12 @@ button:hover{
 a {
     text-decoration: none;
     color: rgba(45,69,92,0.90);
-    font-size: 2em;
+    font-size: 1em;
 }
 
 a:hover{
     color: #f1f1f1;
+    background-color: rgba(45,69,92,0.90);
 }
 
 /* Dropdown Button */
@@ -276,12 +277,11 @@ a .product_name{
     margin: 10px 30px 30px;
 }
 
+
 #id_product_name{
     color: rgba(45,69,92,0.86);
     text-align: center;
 }
-
-
 
 .small_img{
     vertical-align: middle;

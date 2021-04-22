@@ -7,11 +7,9 @@
 {% endblock %}
 
 {% block dropdown %}
-    <button class="browse_products">
-    <a id = "id_browse_all_products" href = "{% url 'home' %}">
-        Browse all Products
+    <a id = "id_browse_all_products" class = "browse_products" href = "{% url 'home' %}">
+        <button>Browse all Products</button>
     </a>
-    </button>
     {% if user.is_authenticated %}
         <div class="dropdown">
             <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
