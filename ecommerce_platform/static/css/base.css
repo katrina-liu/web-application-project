@@ -89,7 +89,7 @@ a:hover{
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 200px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  top: 115px; /* Stay at the top */
+  top: 1px; /* Stay at the top */
   left: 7px;
   background-color: rgba(45,69,92,0.90); /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
@@ -115,15 +115,14 @@ a:hover{
 /* Style page content */
 div.products_display {
   margin-left: 160px; /* Same as the width of the sidebar */
-    margin-right: 100px;
+  margin-right: 100px;
   padding: 0px 10px;
-    overflow: auto;
-    background-color: white;
-    position:fixed;
-    left: 70px;
-    width: 68%;
-    margin-top: 10px;
-    text-align: left;
+  overflow: auto;
+  background-color: white;
+  left: 70px;
+  width: 68%;
+  margin-top: 10px;
+  text-align: left;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */

@@ -35,9 +35,13 @@
 
 
         <form id="id_review_form" method="post">
-            {{ form }}
-            {% csrf_token %}
-            <button type="submit">Post</button>
+            {% if hasReviewd %}
+                You already reviewed this product
+            {% else %}
+                {{ form }}
+                {% csrf_token %}
+                <button type="submit">Post</button>
+            {% endif %}
         </form>
 
     </div>

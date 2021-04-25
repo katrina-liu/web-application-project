@@ -198,8 +198,6 @@ def order_buyer_action(request):
     order_list = Order.objects.all().filter(buyer=request.user, ongoing=True)
     print(order_list)
     context['order_list'] = order_list
-    for order in order_list:
-        print(order.item.all())
     context["products"] = Product.objects.all()
     return render(request, 'order_buyer.html', context)
 
@@ -420,7 +418,6 @@ def cancel_order(request, id):
     order.delete()
     return redirect(reverse('order_buyer'))
 
-
 def confirm_order(request, id):
     order = Order.objects.all().get(id=id)
     order.ongoing = False
@@ -432,7 +429,11 @@ def confirm_order(request, id):
 def review_action(request, id):
     context = {}
     product = Product.objects.get(id=id)
+    # catch exception and redirect to error page
     context['product'] = product
+    # for all reviews for this product, check if user already reviewed
+    numReviews = Review.objects.filter(review_product_id = id, review_reviewer=request.user).count()
+    context['hasReviewd'] = True if numReviews!=0 else False
     if request.method == "GET":
         form = ReviewForm
         context['form'] = form

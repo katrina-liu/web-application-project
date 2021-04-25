@@ -47,7 +47,7 @@
                 <span id="id_product_price_{{ product.id }}"> $ {{ product.product_price }}</span>
                     {% if not order.ongoing %}
                         <a href="{% url 'review' product.id %}">
-            <button id="id_review_product_{{ product.id }}">Review Product</button>
+                            <button id="id_review_product_{{ product.id }}">Review Product</button>
                         </a>
                         {% endif %}
                     </p>
