@@ -5,16 +5,19 @@
 {% endblock %}
 
 {% block dropdown %}
+    <a id = "id_browse_all_products" style="float:left" href = "{% url 'home' %}">
+        <button >Browse All Products</button>
+    </a>
     <div class="dropdown">
-            <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
-                Navigation
-            </button>
-            <div class="dropdown-content" id="id_dropdown_content">
-                <a id="id_nav_shopping_cart_link" href="{% url 'shopping_cart' %}">Shopping Cart</a>
-                <a id="id_nav_wishlist_link" href="{% url 'wishlist' %}">Wishlist</a>
-                <a id="id_nav_profile" href="{% url 'profile' %}">My profile</a>
-                <a id="id_nav_logout" href="{% url 'logout' %}">Logout</a>
-            </div>
+        <button class="dropbtn" id="id_show_nav_button" onclick="nav_drop_down()">
+            Navigation
+        </button>
+        <div class="dropdown-content" id="id_dropdown_content">
+            <a id="id_nav_shopping_cart_link" href="{% url 'shopping_cart' %}">Shopping Cart</a>
+            <a id="id_nav_wishlist_link" href="{% url 'wishlist' %}">Wishlist</a>
+            <a id="id_nav_profile" href="{% url 'profile' %}">My profile</a>
+            <a id="id_nav_logout" href="{% url 'logout' %}">Logout</a>
+        </div>
     </div>
 {% endblock %}
 

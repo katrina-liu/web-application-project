@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 
 {% block title %}
-    Add Product
+    Add/Edit Product
 {% endblock %}
 
 {% block dropdown %}
@@ -21,10 +21,9 @@
 
 
 {% block body %}
-        <button id="id_back_button">
-        <a href="{% url 'profile' %}">
-            Back
-        </a>
+    <a id = "id_browse_all_products" style="float:left" href = "{% url 'home' %}">
+        <button>Browse All Products</button>
+    </a>
     </button>
     <div class="form-row">
     <form enctype="multipart/form-data" method="post" class="edit-form">

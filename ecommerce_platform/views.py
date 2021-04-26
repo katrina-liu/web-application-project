@@ -213,7 +213,10 @@ def order_seller_action(request):
 
 def product_action(request, id):
     context = {}
-    product = Product.objects.all().get(id=id)
+    try:
+        product = Product.objects.all().get(id=id)
+    except:
+        return render(request, 'error.html', context)
     context['product'] = product
     reviews = Review.objects.filter(review_product=product).order_by('-id')
     context['reviews'] = reviews
@@ -253,7 +256,10 @@ def add_product_action(request):
 
 @login_required
 def edit_product_action(request, id):
-    product = get_object_or_404(Product, id=id)
+    try:
+        product = Product.objects.get(id=id)
+    except:
+        return render(request, 'error.html')
     context= {}
     if request.method == "POST":
         form = ProductForm(request.POST, instance=product)
@@ -424,8 +430,10 @@ def confirm_order(request, id):
 
 def review_action(request, id):
     context = {}
-    product = Product.objects.get(id=id)
-    # catch exception and redirect to error page
+    try:
+        product = Product.objects.get(id=id)
+    except:
+        return render(request, 'error.html')
     context['product'] = product
     # for all reviews for this product, check if user already reviewed
     numReviews = Review.objects.filter(review_product_id = id, review_reviewer=request.user).count()
@@ -472,7 +480,9 @@ def payment_done(request):
     print(context['order_list'])
     return render(request, 'payment_done.html', context)
 
-
 @csrf_exempt
 def payment_canceled(request):
     return render(request, 'payment_cancelled.html')
+
+def error_action(request):
+    return render(request, 'error.html')
