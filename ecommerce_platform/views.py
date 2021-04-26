@@ -156,8 +156,6 @@ def other_profile_action(request, id):
     context['products'] = profile.profile_user.product_set.all()
     return render(request, 'other_profile.html', context)
 
-
-@login_required
 def get_photo(request, id, pid):
     item = get_object_or_404(Product, id=id)
     if pid == 1:
@@ -444,10 +442,12 @@ def review_action(request, id):
         return render(request, 'review.html', context)
     form = ReviewForm(request.POST)
     if form.is_valid():
+        print("Im valid")
         review = Review(review_product=product, review_content=form.cleaned_data['review_content'],
                         review_reviewer=request.user)
         review.save()
-    return render(request, 'product.html', context)
+    return redirect(reverse('product', args = [id]))
+    # return render(request, 'product.html', context)
 
 def process_payment(request):
     order_id = request.session.get('order_id')

@@ -22,12 +22,13 @@
             </div>
         </div>
     {% else %}
-        <a id = "id_login_link" href="{% url 'login' %}">
-            <button>Login</button>
-        </a>
-        <a id = "id_register_link" href="{% url 'register' %}">
+        <a id = "id_register_link" style="float:right" href="{% url 'register' %}">
             <button>Register</button>
         </a>
+        <a id = "id_login_link" style="float:right" href="{% url 'login' %}">
+            <button>Login</button>
+        </a>
+        
     {% endif %}
     
 {% endblock %}
