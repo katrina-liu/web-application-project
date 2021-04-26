@@ -14,6 +14,10 @@ button{
     min-width: 100px;
 }
 
+#id_login_button a, #id_register_button a, #id_browse_all_products a {
+  color: white;
+}
+
 div {
     text-align: center;
     alignment: center;
@@ -29,10 +33,6 @@ a {
     font-size: 1em;
 }
 
-a:hover{
-    color: #f1f1f1;
-    background-color: rgba(45,69,92,0.90);
-}
 
 /* Dropdown Button */
 .dropbtn {
@@ -103,8 +103,8 @@ a:hover{
   font-size: 22px;
   color: #dddddd;
   display: block;
-    text-align: left;
-    alignment: center;
+  text-align: left;
+  alignment: center;
 }
 
 /* When you mouse over the navigation links, change their color */
@@ -279,6 +279,14 @@ a .product_name{
 #id_product_name{
     color: rgba(45,69,92,0.86);
     text-align: center;
+}
+
+#id_product_description {
+  font-size: 15px;
+}
+
+a {
+  color: white;
 }
 
 .small_img{

@@ -196,7 +196,6 @@ def order_buyer_action(request):
     context = {}
     order_type = 'ongoing'
     order_list = Order.objects.all().filter(buyer=request.user, ongoing=True)
-    print(order_list)
     context['order_list'] = order_list
     context["products"] = Product.objects.all()
     return render(request, 'order_buyer.html', context)
@@ -296,7 +295,6 @@ def check_out_action(request):
         new_order.ongoing = True
         new_order.save()
         new_order.item.add(product)
-        print(product)
         product.product_in_stock_quantity -= 1
         cost += product.product_price
         if product.product_in_stock_quantity > 0:
@@ -327,8 +325,6 @@ def buy_change_ongoing(request, ongoing):
                                                 ongoing=False)
     context['ongoing'] = order_ongoing
     context['order_list'] = order_list
-    print(order_list)
-    print(Order.objects.all())
     context["products"] = Product.objects.all()
     return render(request, 'order_buyer.html', context)
 
@@ -443,7 +439,7 @@ def review_action(request, id):
         review = Review(review_product=product, review_content=form.cleaned_data['review_content'],
                         review_reviewer=request.user)
         review.save()
-    return redirect(reverse('home'))
+    return render(request, 'product.html', context)
 
 def process_payment(request):
     order_id = request.session.get('order_id')
@@ -469,7 +465,12 @@ def process_payment(request):
 
 @csrf_exempt
 def payment_done(request):
-    return render(request, 'payment_done.html')
+    context = {}
+    order_list = Order.objects.all().filter(buyer=request.user, ongoing=True)
+    context['order_list'] = order_list
+    context["products"] = Product.objects.all()
+    print(context['order_list'])
+    return render(request, 'payment_done.html', context)
 
 
 @csrf_exempt
