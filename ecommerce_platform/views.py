@@ -148,6 +148,8 @@ def other_profile_action(request, id):
     context = {}
     # profile = Profile.objects.all().get(id=id)
     profile = get_object_or_404(Profile, id=id)
+    if profile.profile_user.id == request.user.id:
+        return redirect(reverse("profile"))
     context['first_name'] = profile.profile_user.first_name
     context['last_name'] = profile.profile_user.last_name
     context['profile'] = profile
@@ -254,7 +256,7 @@ def edit_product_action(request, id):
     product = get_object_or_404(Product, id=id)
     context = {}
     if request.method == "POST":
-        form = ProductForm(request.POST, instance=product)
+        form = ProductForm(request.POST,request.FILES, instance=product)
         context['form'] = form
         reviews = Review.objects.filter(review_product=product).order_by('-id')
         context['reviews'] = reviews
