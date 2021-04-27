@@ -98,15 +98,15 @@ class ProductForm(ModelForm):
         return super().clean()
 
     def clean_product_picture1(self):
-        picture1 = self.cleaned_data['profile_picture1']
+        picture1 = self.cleaned_data['product_picture1']
         return clean_picture(picture1)
 
     def clean_product_picture2(self):
-        picture2 = self.cleaned_data['profile_picture2']
+        picture2 = self.cleaned_data['product_picture2']
         return clean_picture(picture2)
 
     def clean_product_picture3(self):
-        picture3 = self.cleaned_data['profile_picture3']
+        picture3 = self.cleaned_data['product_picture3']
         return clean_picture(picture3)
 
 
