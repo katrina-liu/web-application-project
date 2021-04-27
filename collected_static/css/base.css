@@ -1,0 +1,400 @@
+
+body{
+    background-color: #dddddd;
+    overflow: scroll;
+}
+
+button{
+    background-color: rgba(45,69,92,0.90);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+#id_login_button a, #id_register_button a, #id_browse_all_products a {
+  color: white;
+}
+
+div {
+    text-align: center;
+    alignment: center;
+}
+
+button:hover{
+    background-color: rgba(45,69,92,0.90);
+}
+
+a {
+    text-decoration: none;
+    color: rgba(45,69,92,0.90);
+    font-size: 1em;
+}
+
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: rgba(45,69,92,0.90);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: rgba(45,69,92,0.90);
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    float: right;
+    right: 0;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: rgba(45,69,92,0.90);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: white;
+  padding: 10px 14px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: rgba(45,69,92,0.90)}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+
+/* css adapted from w3schools.com https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp*/
+
+/* The sidebar menu */
+.sidebar_nav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 200px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  top: 1px; /* Stay at the top */
+  left: 7px;
+  background-color: rgba(45,69,92,0.90); /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+/* The navigation menu links */
+.sidebar_nav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 22px;
+  color: #dddddd;
+  display: block;
+  text-align: left;
+  alignment: center;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar_nav a:hover {
+  color: #f1f1f1;
+}
+
+/* Style page content */
+div.products_display {
+  margin-left: 220px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+  overflow: auto;
+  background-color: white;
+  left: 70px;
+  width: 68%;
+  margin-top: 10px;
+  text-align: left;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar_nav {padding-top: 15px;}
+  .sidebar_nav a {font-size: 18px;}
+}
+
+
+.header {
+  font-size: 50px;
+  font-family: Georgia;
+  text-align: center;
+  padding: 25px 50px;
+  background-color: white;
+    color: rgba(45,69,92,0.90);
+      z-index: 1; /* Stay on top */
+}
+
+#forms {
+  margin: 0 auto;
+  display: inline-block;
+  text-align: center;
+}
+
+#id_category_label{
+    padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #dddddd;
+  display: block;
+}
+
+form {
+    color: rgba(45,69,92,0.86);
+    alignment: center;
+    display: inline-block;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=number] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+    background-color: rgba(45,69,92,0.90);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+input[type=submit]:hover {
+    background-color: rgba(45,69,92,0.90);
+}
+
+
+input[type=file] {
+    background-color: rgba(45,69,92,0.90);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+input[type=checkbox] {
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    min-width: 30px;
+}
+
+.form-row {
+    alignment: center;
+}
+
+.browse_products{
+    float: left;
+    margin-right: 10px;
+}
+
+label {
+    color: rgba(45,69,92,0.86);
+    font-size: 18px;
+}
+
+#id_profile_name{
+    color: rgba(45,69,92,0.86);
+    font-size: 50px;
+}
+
+p{
+    color: rgba(45,69,92,0.86);
+    font-size: 30px;
+}
+
+a .product_name{
+    color: rgba(45,69,92,0.86);
+}
+
+#id_seller_name{
+  color: rgba(82, 89, 96, 0.86);
+  text-align: center;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.profile_picture {
+  margin-top: 120px;
+}
+
+.checkout {
+    text-align: right;
+}
+
+
+.tile{
+    background-color: #dddddd;
+    width: 250px;
+    display: inline-block;
+    padding: 10px;
+    margin: 10px 30px 30px;
+}
+
+
+#id_product_name{
+    color: rgba(45,69,92,0.86);
+    text-align: center;
+}
+
+#id_product_description {
+  font-size: 15px;
+}
+
+a {
+  color: grey;
+}
+
+.small_img{
+    vertical-align: middle;
+}
+
+p.small_price{
+    font-size: 26px;position: fixed; right: 10%;margin: 20px;
+}
+
+.right_button{
+    float: right;
+    z-index: 1;
+}
+
+.left_button{
+    float: left;
+}
+
+input[type=number].quantity_box{
+    width: 70px;
+  padding: 12px 20px;
+  margin: 8px 0;
+    display: inline-block;
+  box-sizing: border-box;
+}
+
+table.product_table {
+    margin-top: 20px;
+    width: 100%;
+}
+
+table.order_table {
+    margin-left: 200px;
+    width: 65%;
+}
+
+tr {
+    background-color: white;
+    margin-top: 20px;
+    width: 100%;
+}
+
+td {
+    margin: 5px;
+}
+
+/* For product slide show on profile page */
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: relative;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text p {
+  color: rgba(45,69,92,0.86);
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+div.review_display{
+    width: 100%;
+}
+table.review_table{
+    margin-top: 20px;
+    width: 60%;
+    font-size: 20px;
+    margin-left: 20%;
+}
