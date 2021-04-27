@@ -13,14 +13,12 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 
 
-
 # Create your views here.
 
 
 def home_action(request):
-    context = {}
-    context['products'] = Product.objects.all().filter(
-        product_availability=True).order_by('-id')
+    context = {'products': Product.objects.all().filter(
+        product_availability=True).order_by('-id')}
     return render(request, 'home.html', context)
 
 
@@ -156,6 +154,7 @@ def other_profile_action(request, id):
     context['products'] = profile.profile_user.product_set.all()
     return render(request, 'other_profile.html', context)
 
+
 def get_photo(request, id, pid):
     item = get_object_or_404(Product, id=id)
     if pid == 1:
@@ -211,10 +210,7 @@ def order_seller_action(request):
 
 def product_action(request, id):
     context = {}
-    try:
-        product = Product.objects.all().get(id=id)
-    except:
-        return render(request, 'error.html', context)
+    product = get_object_or_404(Product, id=id)
     context['product'] = product
     reviews = Review.objects.filter(review_product=product).order_by('-id')
     context['reviews'] = reviews
@@ -252,13 +248,11 @@ def add_product_action(request):
         product.save()
     return redirect(reverse('home'))
 
+
 @login_required
 def edit_product_action(request, id):
-    try:
-        product = Product.objects.get(id=id)
-    except:
-        return render(request, 'error.html')
-    context= {}
+    product = get_object_or_404(Product, id=id)
+    context = {}
     if request.method == "POST":
         form = ProductForm(request.POST, instance=product)
         context['form'] = form
@@ -267,6 +261,8 @@ def edit_product_action(request, id):
         if form.is_valid():
             p = form.save(commit=False)
             p.product_seller = request.user
+            if p.product_in_stock_quantity > 0:
+                p.product_availability = True
             p.save()
             context['product'] = p
             return render(request, 'product.html', context)
@@ -275,6 +271,7 @@ def edit_product_action(request, id):
         context['form'] = form
     return render(request, 'add_product.html', context)
 
+
 @login_required
 def delete_product_action(request, id):
     product = get_object_or_404(Product, id=id)
@@ -282,6 +279,7 @@ def delete_product_action(request, id):
     return redirect(reverse('home'))
 
 
+@login_required
 def check_out_action(request):
     context = {}
     shopping_cart_products = ShoppingCart.objects.all().get(
@@ -310,13 +308,14 @@ def check_out_action(request):
     return redirect(reverse('process_payment'))
 
 
+@login_required
 def change_category(request, category):
-    context = {}
-    context['products'] = Product.objects.all().filter(
-        product_category=category).order_by('-id')
+    context = {'products': Product.objects.all().filter(
+        product_category=category).order_by('-id')}
     return render(request, 'home.html', context)
 
 
+@login_required
 def buy_change_ongoing(request, ongoing):
     context = {}
     if ongoing == 1:
@@ -333,6 +332,7 @@ def buy_change_ongoing(request, ongoing):
     return render(request, 'order_buyer.html', context)
 
 
+@login_required
 def sell_change_ongoing(request, ongoing):
     context = {}
     if ongoing == 1:
@@ -346,6 +346,7 @@ def sell_change_ongoing(request, ongoing):
     return render(request, 'order_seller.html', context)
 
 
+@login_required
 def add_to_shopping_cart(request, product_id):
     shopping_cart = ShoppingCart.objects.all().get(
         shopping_cart_user=request.user)
@@ -354,12 +355,14 @@ def add_to_shopping_cart(request, product_id):
     return redirect(reverse('shopping_cart'))
 
 
+@login_required
 def add_to_wish_list(request, product_id):
     wishlist = Wishlist.objects.all().get(wishlist_user=request.user)
     wishlist.wishlist_products.add(Product.objects.all().get(id=product_id))
     return redirect(reverse('wishlist'))
 
 
+@login_required
 def move_wishlist_to_cart(request, id):
     user = request.user
     product = get_object_or_404(Product, id=id)
@@ -372,6 +375,7 @@ def move_wishlist_to_cart(request, id):
     return redirect(reverse('shopping_cart'))
 
 
+@login_required
 def move_cart_to_wishlist(request, id):
     user = request.user
     product = get_object_or_404(Product, id=id)
@@ -383,6 +387,8 @@ def move_cart_to_wishlist(request, id):
     wishlist.wishlist_products.add(product)
     return redirect(reverse('wishlist'))
 
+
+@login_required
 def remove_product_from_wishlist(request, id):
     user = request.user
     product = get_object_or_404(Product, id=id)
@@ -391,6 +397,8 @@ def remove_product_from_wishlist(request, id):
     wishlist.wishlist_products.remove(product)
     return redirect(reverse('wishlist'))
 
+
+@login_required
 def remove_product_from_cart(request, id):
     user = request.user
     product = get_object_or_404(Product, id=id)
@@ -399,18 +407,24 @@ def remove_product_from_cart(request, id):
     cart.shopping_cart_product.remove(product)
     return redirect(reverse('shopping_cart'))
 
+
+@login_required
 def clear_shopping_cart(request):
     user = request.user
     cart = get_object_or_404(ShoppingCart, shopping_cart_user=user)
     cart.shopping_cart_product.clear()
     return redirect(reverse('shopping_cart'))
 
+
+@login_required
 def clear_wishlist(request):
     user = request.user
     wishlist = get_object_or_404(Wishlist, wishlist_user=user)
     wishlist.wishlist_products.clear()
     return redirect(reverse('wishlist'))
 
+
+@login_required
 def cancel_order(request, id):
     order = Order.objects.all().get(id=id)
     for product in order.item.all():
@@ -418,36 +432,37 @@ def cancel_order(request, id):
     order.delete()
     return redirect(reverse('order_buyer'))
 
+
+@login_required
 def confirm_order(request, id):
     order = Order.objects.all().get(id=id)
     order.ongoing = False
-    print(order)
     order.save()
     return redirect(reverse('order_buyer'))
 
 
+@login_required
 def review_action(request, id):
     context = {}
-    try:
-        product = Product.objects.get(id=id)
-    except:
-        return render(request, 'error.html')
+    product = get_object_or_404(Product, id=id)
     context['product'] = product
     # for all reviews for this product, check if user already reviewed
-    numReviews = Review.objects.filter(review_product_id = id, review_reviewer=request.user).count()
-    context['hasReviewd'] = True if numReviews!=0 else False
+    numReviews = Review.objects.filter(review_product_id=id,
+                                       review_reviewer=request.user).count()
+    context['hasReviewd'] = True if numReviews != 0 else False
     if request.method == "GET":
         form = ReviewForm
         context['form'] = form
         return render(request, 'review.html', context)
     form = ReviewForm(request.POST)
     if form.is_valid():
-        print("Im valid")
-        review = Review(review_product=product, review_content=form.cleaned_data['review_content'],
+        review = Review(review_product=product,
+                        review_content=form.cleaned_data['review_content'],
                         review_reviewer=request.user)
         review.save()
-    return redirect(reverse('product', args = [id]))
+    return redirect(reverse('product', args=[id]))
     # return render(request, 'product.html', context)
+
 
 def process_payment(request):
     order_id = request.session.get('order_id')
@@ -469,7 +484,9 @@ def process_payment(request):
     }
 
     form = PayPalPaymentsForm(initial=paypal_dict)
-    return render(request, 'process_payment.html', {'order': order, 'form': form})
+    return render(request, 'process_payment.html',
+                  {'order': order, 'form': form})
+
 
 @csrf_exempt
 def payment_done(request):
@@ -477,12 +494,17 @@ def payment_done(request):
     order_list = Order.objects.all().filter(buyer=request.user, ongoing=True)
     context['order_list'] = order_list
     context["products"] = Product.objects.all()
-    print(context['order_list'])
     return render(request, 'payment_done.html', context)
+
 
 @csrf_exempt
 def payment_canceled(request):
     return render(request, 'payment_cancelled.html')
 
-def error_action(request):
+
+def error_action(request, exception):
+    return render(request, 'error.html')
+
+
+def handler500(request, *args, **argv):
     return render(request, 'error.html')

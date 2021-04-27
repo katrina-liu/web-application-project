@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from ecommerce_platform.models import *
 import sys
+from django.core.validators import validate_email
 
 MAX_UPLOAD_SIZE = sys.maxsize
 
@@ -48,6 +49,7 @@ class RegisterForm(forms.Form):
         password2 = cleaned_data.get('confirm_password')
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords did not match.")
+        validate_email(cleaned_data.get('email'))
 
         # We must return the cleaned data we got from our parent.
         return cleaned_data
@@ -73,6 +75,18 @@ class ReviewForm(ModelForm):
         return super().clean()
 
 
+def clean_picture(picture):
+    if not picture or not hasattr(picture, 'content_type'):
+        raise forms.ValidationError('You must upload a picture')
+    if not picture.content_type or not picture.content_type.startswith(
+            'image'):
+        raise forms.ValidationError('File type is not image')
+    if picture.size > MAX_UPLOAD_SIZE:
+        raise forms.ValidationError(
+            'File too big (max size is {0} bytes)'.format(MAX_UPLOAD_SIZE))
+    return picture
+
+
 class ProductForm(ModelForm):
     class Meta:
         model = Product
@@ -83,20 +97,24 @@ class ProductForm(ModelForm):
     def clean(self):
         return super().clean()
 
+    def clean_product_picture1(self):
+        picture1 = self.cleaned_data['profile_picture1']
+        return clean_picture(picture1)
+
+    def clean_product_picture2(self):
+        picture2 = self.cleaned_data['profile_picture2']
+        return clean_picture(picture2)
+
+    def clean_product_picture3(self):
+        picture3 = self.cleaned_data['profile_picture3']
+        return clean_picture(picture3)
+
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['profile_picture']
 
-    def clean_picture(self):
+    def clean_profile_picture(self):
         picture = self.cleaned_data['profile_picture']
-        if not picture or not hasattr(picture, 'content_type'):
-            raise forms.ValidationError('You must upload a picture')
-        if not picture.content_type or not picture.content_type.startswith(
-                'image'):
-            raise forms.ValidationError('File type is not image')
-        if picture.size > MAX_UPLOAD_SIZE:
-            raise forms.ValidationError(
-                'File too big (max size is {0} bytes)'.format(MAX_UPLOAD_SIZE))
-        return picture
+        return clean_picture(picture)

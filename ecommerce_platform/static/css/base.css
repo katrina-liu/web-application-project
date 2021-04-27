@@ -114,8 +114,7 @@ a {
 
 /* Style page content */
 div.products_display {
-  margin-left: 160px; /* Same as the width of the sidebar */
-  margin-right: 100px;
+  margin-left: 220px; /* Same as the width of the sidebar */
   padding: 0px 10px;
   overflow: auto;
   background-color: white;

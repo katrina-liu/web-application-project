@@ -3,7 +3,7 @@
 <script src="{% static 'js/base.js' %}"> </script>
 
 {% block title %}
-    Product Page
+    {{product.product_name}}
 {% endblock %}
 
 {% block dropdown %}
@@ -37,7 +37,7 @@
 
 {% block body %}
     <div>
-        <p id = "id_product_name" style="font-size: 40px">{{product.product_name}}</p>
+
         <p>
             {% if product.product_seller == user %}
                 Seller: <a id = "id_seller_name"  href="{% url 'profile' %}">{{product.product_seller}}</a>
@@ -56,9 +56,27 @@
         {% endif %}
         <br><br>
 
-        <img id = "id_product_picture1" src="{% url 'photo' product.id 1 %}" width="200px" height="250px">  
-        <img id = "id_product_picture2" src="{% url 'photo' product.id 2 %}" width="200px" height="250px">  
-        <img id = "id_product_picture3" src="{% url 'photo' product.id 3 %}" width="200px" height="250px">   
+
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <img id = "id_product_picture1" src="{% url 'photo' product.id 1 %}" width="200px" height="200px">
+            </div>
+            <div class="mySlides fade">
+                <img id = "id_product_picture2" src="{% url 'photo' product.id 1 %}" width="200px" height="200px">
+            </div>
+            <div class="mySlides fade">
+                <img id = "id_product_picture3" src="{% url 'photo' product.id 1 %}" width="200px" height="200px">
+            </div>
+        <br>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <script>
+            var slideIndex = 1;
+            showSlides(slideIndex);
+        </script>
+
+
 
         <p id = "id_product_price">Price: ${{product.product_price}}</p>
         <p id = "id_product_description">{{product.product_description}}</p>
@@ -88,7 +106,7 @@
                 :{{r.review_content}}
             </td></tr>
         {% endfor %}
-        </ul>
+        </table>
     </div>
 
 {% endblock %}
