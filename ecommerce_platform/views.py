@@ -5,7 +5,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.auth.decorators import login_required
 from ecommerce_platform.forms import *
 from ecommerce_platform.models import *
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, FileResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from decimal import Decimal
@@ -506,3 +506,9 @@ def error_action(request, exception):
 
 def handler500(request, *args, **argv):
     return render(request, 'error.html')
+
+
+def get_favicon(request):
+    img = open('favicon.ico', 'rb')
+    response = FileResponse(img)
+    return response

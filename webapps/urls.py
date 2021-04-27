@@ -71,7 +71,8 @@ urlpatterns = [
     path('payment-done/', views.payment_done, name='payment_done'),
     path('payment-cancelled/', views.payment_canceled,
          name='payment_cancelled'),
-    path('error', views.error_action, name="error")
+    path('error', views.error_action, name="error"),
+    path('favicon.ico', views.get_favicon),
 ]
 
 handler404 = 'ecommerce_platform.views.error_action'
