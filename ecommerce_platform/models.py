@@ -32,7 +32,7 @@ class Product(models.Model):
 # The model for each review for products, use filter to get reviews for each
 # product.
 class Review(models.Model):
-    review_product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    review_product = models.ForeignKey(Product, on_delete=models.CASCADE)
     review_content = models.CharField(max_length=200)
     review_reviewer = models.ForeignKey(User, on_delete=models.PROTECT)
 
