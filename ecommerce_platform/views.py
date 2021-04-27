@@ -461,8 +461,6 @@ def review_action(request, id):
                         review_reviewer=request.user)
         review.save()
     return redirect(reverse('product', args=[id]))
-    # return render(request, 'product.html', context)
-
 
 def process_payment(request):
     order_id = request.session.get('order_id')
