@@ -511,6 +511,7 @@ def payment_canceled(request):
             if not product.product_availability:
                 product.product_availability = True
             product.save()
+        order.delete()
     return render(request, 'payment_cancelled.html')
 
 
