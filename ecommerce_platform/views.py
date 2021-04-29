@@ -1,14 +1,12 @@
-from django.shortcuts import render, redirect
+from django.db import transaction
 from django.urls import reverse
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from ecommerce_platform.forms import *
 from ecommerce_platform.models import *
 from django.http import HttpResponse, Http404, FileResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
-from decimal import Decimal
 from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 
@@ -283,33 +281,34 @@ def delete_product_action(request, id):
 
 @login_required
 def check_out_action(request):
-    context = {}
-    shopping_cart_products = ShoppingCart.objects.all().get(
-        shopping_cart_user=request.user).shopping_cart_product
-    available_products = shopping_cart_products.filter(
-        product_availability=True)
-    cost = 0
-    order_ids = []
-    for product in available_products:
-        product.product_in_stock_quantity -= 1
-        if product.product_in_stock_quantity == 0:
-            product.product_availability = False
-        new_order = Order()
-        new_order.buyer = request.user
-        new_order.seller = product.product_seller
-        new_order.quantity = 1
-        new_order.total_price = product.product_price
-        new_order.ongoing = True
-        new_order.save()
-        new_order.item.add(product)
-        cost += product.product_price
-        shopping_cart_products.remove(product)
-        order_ids.append(new_order.id)
-    paypal_order = PaypalOrder(total=cost)
-    paypal_order.save()
-    request.session['order_id'] = paypal_order.id
-    request.session['ids'] = order_ids
-    return redirect(reverse('process_payment'))
+    with transaction.atomic():
+        shopping_cart_products = ShoppingCart.objects.all().get(
+            shopping_cart_user=request.user).shopping_cart_product
+        available_products = shopping_cart_products.filter(
+            product_availability=True)
+        cost = 0
+        order_ids = []
+        for product in available_products:
+            product.product_in_stock_quantity -= 1
+            if product.product_in_stock_quantity == 0:
+                product.product_availability = False
+            product.save()
+            new_order = Order()
+            new_order.buyer = request.user
+            new_order.seller = product.product_seller
+            new_order.quantity = 1
+            new_order.total_price = product.product_price
+            new_order.ongoing = True
+            new_order.save()
+            new_order.item.add(product)
+            cost += product.product_price
+            shopping_cart_products.remove(product)
+            order_ids.append(new_order.id)
+        paypal_order = PaypalOrder(total=cost)
+        paypal_order.save()
+        request.session['order_id'] = paypal_order.id
+        request.session['ids'] = order_ids
+        return redirect(reverse('process_payment'))
 
 
 @login_required
@@ -435,6 +434,7 @@ def cancel_order(request, id):
         product.product_in_stock_quantity += 1
         if not product.product_availability:
             product.product_availability = True
+        product.save()
     order.delete()
     return redirect(reverse('order_buyer'))
 
@@ -503,7 +503,14 @@ def payment_done(request):
 
 @csrf_exempt
 def payment_canceled(request):
-    print(request.session)
+    order_ids = request.session.get("ids")
+    for order_id in order_ids:
+        order = get_object_or_404(Order, id=order_id)
+        for product in order.item.all():
+            product.product_in_stock_quantity += 1
+            if not product.product_availability:
+                product.product_availability = True
+            product.save()
     return render(request, 'payment_cancelled.html')
 
 

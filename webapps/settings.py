@@ -27,7 +27,7 @@ SECRET_KEY = CONFIG.get('Django', 'Secret')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['13.58.173.236']
+ALLOWED_HOSTS = ['13.58.173.236', 'localhost']
 
 
 # Application definition
