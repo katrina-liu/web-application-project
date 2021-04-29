@@ -289,8 +289,11 @@ def check_out_action(request):
     available_products = shopping_cart_products.filter(
         product_availability=True)
     cost = 0
+    order_ids = []
     for product in available_products:
-        product.product_availability = False
+        product.product_in_stock_quantity -= 1
+        if product.product_in_stock_quantity == 0:
+            product.product_availability = False
         new_order = Order()
         new_order.buyer = request.user
         new_order.seller = product.product_seller
@@ -299,14 +302,13 @@ def check_out_action(request):
         new_order.ongoing = True
         new_order.save()
         new_order.item.add(product)
-        product.product_in_stock_quantity -= 1
         cost += product.product_price
-        if product.product_in_stock_quantity > 0:
-            product.product_availability = True
         shopping_cart_products.remove(product)
+        order_ids.append(new_order.id)
     paypal_order = PaypalOrder(total=cost)
     paypal_order.save()
     request.session['order_id'] = paypal_order.id
+    request.session['ids'] = order_ids
     return redirect(reverse('process_payment'))
 
 
@@ -431,6 +433,8 @@ def cancel_order(request, id):
     order = Order.objects.all().get(id=id)
     for product in order.item.all():
         product.product_in_stock_quantity += 1
+        if not product.product_availability:
+            product.product_availability = True
     order.delete()
     return redirect(reverse('order_buyer'))
 
@@ -499,6 +503,7 @@ def payment_done(request):
 
 @csrf_exempt
 def payment_canceled(request):
+    print(request.session)
     return render(request, 'payment_cancelled.html')
 
 
