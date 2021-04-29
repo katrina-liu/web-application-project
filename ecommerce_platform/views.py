@@ -286,6 +286,9 @@ def check_out_action(request):
             shopping_cart_user=request.user).shopping_cart_product
         available_products = shopping_cart_products.filter(
             product_availability=True)
+        # if shopping cart is empty, redirect
+        if available_products.count() == 0:
+            return redirect(reverse('shopping_cart'))
         cost = 0
         order_ids = []
         for product in available_products:
